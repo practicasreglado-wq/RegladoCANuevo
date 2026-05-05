@@ -1,0 +1,125 @@
+{
+  "brand": "Reglado Consultores",
+  "tagline": "End-to-end consulting for public administrations",
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "subvenciones": "Grants",
+    "contrataciones": "Procurement",
+    "contacto": "Contact",
+    "menu": "Menu"
+  },
+  "services": {
+    "inspecciones": "Tax inspections",
+    "juridica": "Legal consulting",
+    "tecnica": "Technical consulting",
+    "economica": "Financial consulting",
+    "energetica": "Energy consulting"
+  },
+  "hero": {
+    "eyebrow": "Public sector advisory",
+    "title": "Technical excellence at the service of administrations",
+    "subtitle": "We support town halls and public bodies with a multidisciplinary team of lawyers, economists, engineers and specialists.",
+    "cta": "Request consultation",
+    "cta_secondary": "View services"
+  },
+  "services_section": {
+    "eyebrow": "Areas of expertise",
+    "title": "Comprehensive solutions for every municipal challenge",
+    "subtitle": "From tax inspections to the energy transition, we cover the full life-cycle of public management.",
+    "cta": "Learn more"
+  },
+  "banner": {
+    "eyebrow": "Our philosophy",
+    "title": "Legal rigour, technical insight, strategic vision.",
+    "text": "Every town hall is unique. We design tailored plans combining compliance, budget efficiency and long-term foresight."
+  },
+  "about": {
+    "eyebrow": "About us",
+    "title": "Over two decades advising the public sector",
+    "p1": "Reglado Consultores was founded to be the technical ally of local administrations. Today we work with more than 200 town halls and public bodies across Spain.",
+    "p2": "Our approach combines deep legal knowledge with the agility of private consultancy. The result: stronger, more efficient and more defensible public decisions.",
+    "tags": ["Independence", "Rigour", "Closeness", "Innovation", "Commitment"]
+  },
+  "stats": {
+    "eyebrow": "Numbers that prove it",
+    "title": "Results of a job well done",
+    "items": [
+      { "value": 220, "suffix": "+", "label": "Town halls advised" },
+      { "value": 24, "suffix": "", "label": "Years of experience" },
+      { "value": 38, "suffix": "", "label": "In-house professionals" },
+      { "value": 1850, "suffix": "+", "label": "Cases resolved" }
+    ]
+  },
+  "ordenanzas": {
+    "eyebrow": "Tax ordinances",
+    "title": "Municipal tax modernisation",
+    "subtitle": "Review, drafting and defence of fiscal ordinances tailored to each local reality.",
+    "items": [
+      "Property tax (IBI)",
+      "Business tax (IAE)",
+      "Vehicle tax (IVTM)",
+      "Capital gains (IIVTNU)",
+      "Construction tax (ICIO)",
+      "Service fees",
+      "Public prices",
+      "Special contributions"
+    ]
+  },
+  "contact": {
+    "eyebrow": "Let's talk",
+    "title": "Tell us about your case",
+    "subtitle": "We respond within 24 working hours. Initial consultations are free and confidential.",
+    "form": {
+      "name": "Full name",
+      "role": "Role",
+      "role_options": ["Mayor", "Secretary", "Comptroller", "Technical staff", "Council member", "Other"],
+      "entity": "Town hall or public body",
+      "email": "Institutional email",
+      "phone": "Phone",
+      "service": "Service of interest",
+      "service_options": ["Tax inspections", "Legal consulting", "Technical consulting", "Financial consulting", "Energy consulting", "EU grants", "Procurement", "Other"],
+      "message": "Briefly describe your case",
+      "rgpd": "I have read and accept the <a href=\"/privacidad\">privacy policy</a> and the processing of my data to respond to this enquiry.",
+      "newsletter": "I'd like to receive updates and regulatory alerts (optional).",
+      "submit": "Send enquiry",
+      "sending": "Sending…",
+      "success": "Message sent. We'll be in touch within 24 hours.",
+      "error": "We couldn't send your message. Please try again or write to info@regladoconsultores.com.",
+      "required": "This field is required",
+      "invalid_email": "Enter a valid email"
+    },
+    "info": {
+      "phone": "+34 900 000 000",
+      "email": "info@regladoconsultores.com",
+      "address": "Madrid · Nationwide coverage",
+      "hours": "Mon–Fri · 9:00–18:00"
+    }
+  },
+  "footer": {
+    "tagline": "End-to-end consulting for the public sector.",
+    "company": "Company",
+    "legal": "Legal",
+    "contact_us": "Contact",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy",
+    "legal_notice": "Legal notice",
+    "accessibility": "Accessibility",
+    "cookies": "Cookies"
+  },
+  "cookies": {
+    "title": "We use cookies with purpose",
+    "text": "Only technical cookies needed for operation. No commercial tracking.",
+    "accept": "Got it"
+  },
+  "common": {
+    "learn_more": "Learn more",
+    "back_home": "Back home",
+    "loading": "Loading…"
+  },
+  "notfound": {
+    "title": "Page not found",
+    "text": "The page you're looking for doesn't exist or has moved."
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "brand": "Reglado Consultores",
+  "tagline": "Consultoría integral para administraciones públicas",
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre nosotros",
+    "services": "Servicios",
+    "subvenciones": "Subvenciones",
+    "contrataciones": "Contrataciones",
+    "contacto": "Contacto",
+    "menu": "Menú"
+  },
+  "services": {
+    "inspecciones": "Inspecciones tributarias",
+    "juridica": "Consultoría jurídica",
+    "tecnica": "Consultoría técnica",
+    "economica": "Consultoría económica",
+    "energetica": "Consultoría energética"
+  },
+  "hero": {
+    "eyebrow": "Asesoramiento al sector público",
+    "title": "Excelencia técnica al servicio de las administraciones",
+    "subtitle": "Acompañamos a ayuntamientos y organismos públicos con un equipo multidisciplinar de juristas, economistas, ingenieros y técnicos especializados.",
+    "cta": "Solicitar consulta",
+    "cta_secondary": "Ver servicios"
+  },
+  "services_section": {
+    "eyebrow": "Áreas de especialización",
+    "title": "Soluciones integrales para cada reto municipal",
+    "subtitle": "Desde la inspección tributaria hasta la transición energética, cubrimos todo el ciclo de vida de la gestión pública.",
+    "cta": "Conocer servicio"
+  },
+  "banner": {
+    "eyebrow": "Nuestra filosofía",
+    "title": "Rigor jurídico, visión técnica, mirada estratégica.",
+    "text": "Cada ayuntamiento es único. Diseñamos planes a medida que combinan cumplimiento normativo, eficiencia presupuestaria y prospectiva a largo plazo."
+  },
+  "about": {
+    "eyebrow": "Sobre nosotros",
+    "title": "Más de dos décadas asesorando al sector público",
+    "p1": "Reglado Consultores nació para ser el aliado técnico de las administraciones locales. Hoy trabajamos con más de 200 ayuntamientos, mancomunidades y organismos autónomos en toda España.",
+    "p2": "Nuestro enfoque combina la profundidad del conocimiento jurídico con la agilidad de la consultoría privada. El resultado: decisiones públicas más sólidas, eficientes y defendibles.",
+    "tags": ["Independencia", "Rigor", "Cercanía", "Innovación", "Compromiso"]
+  },
+  "stats": {
+    "eyebrow": "Cifras que avalan",
+    "title": "Resultados de un trabajo bien hecho",
+    "items": [
+      { "value": 220, "suffix": "+", "label": "Ayuntamientos asesorados" },
+      { "value": 24, "suffix": "", "label": "Años de experiencia" },
+      { "value": 38, "suffix": "", "label": "Profesionales en plantilla" },
+      { "value": 1850, "suffix": "+", "label": "Expedientes resueltos" }
+    ]
+  },
+  "ordenanzas": {
+    "eyebrow": "Ordenanzas fiscales",
+    "title": "Modernización tributaria municipal",
+    "subtitle": "Revisión, redacción y defensa de ordenanzas fiscales adaptadas a cada realidad local.",
+    "items": [
+      "IBI — Impuesto sobre Bienes Inmuebles",
+      "IAE — Impuesto sobre Actividades Económicas",
+      "IVTM — Impuesto sobre Vehículos de Tracción Mecánica",
+      "IIVTNU — Plusvalía municipal",
+      "ICIO — Construcciones, Instalaciones y Obras",
+      "Tasas por prestación de servicios",
+      "Precios públicos",
+      "Contribuciones especiales"
+    ]
+  },
+  "contact": {
+    "eyebrow": "Hablemos",
+    "title": "Cuéntanos tu caso",
+    "subtitle": "Respondemos en menos de 24 horas laborables. Toda consulta inicial es gratuita y confidencial.",
+    "form": {
+      "name": "Nombre y apellidos",
+      "role": "Cargo",
+      "role_options": ["Alcalde / Alcaldesa", "Secretario / Secretaria", "Interventor / Interventora", "Técnico / Técnica", "Concejal / Concejala", "Otro"],
+      "entity": "Ayuntamiento u organismo",
+      "email": "Email institucional",
+      "phone": "Teléfono",
+      "service": "Servicio de interés",
+      "service_options": ["Inspecciones tributarias", "Consultoría jurídica", "Consultoría técnica", "Consultoría económica", "Consultoría energética", "Subvenciones europeas", "Contrataciones", "Otro"],
+      "message": "Cuéntanos brevemente tu caso",
+      "rgpd": "He leído y acepto la <a href=\"/privacidad\">política de privacidad</a> y el tratamiento de mis datos para responder a esta consulta.",
+      "newsletter": "Quiero recibir novedades y alertas normativas (opcional).",
+      "submit": "Enviar consulta",
+      "sending": "Enviando…",
+      "success": "Mensaje enviado. Nos pondremos en contacto en menos de 24 h.",
+      "error": "No hemos podido enviar tu mensaje. Inténtalo de nuevo o escríbenos directamente a info@regladoconsultores.com.",
+      "required": "Este campo es obligatorio",
+      "invalid_email": "Introduce un email válido"
+    },
+    "info": {
+      "phone": "+34 900 000 000",
+      "email": "info@regladoconsultores.com",
+      "address": "Madrid · Cobertura nacional",
+      "hours": "L–V · 9:00–18:00"
+    }
+  },
+  "footer": {
+    "tagline": "Consultoría integral para el sector público.",
+    "company": "Empresa",
+    "legal": "Legal",
+    "contact_us": "Contacto",
+    "rights": "Todos los derechos reservados.",
+    "privacy": "Privacidad",
+    "legal_notice": "Aviso legal",
+    "accessibility": "Accesibilidad",
+    "cookies": "Cookies"
+  },
+  "cookies": {
+    "title": "Usamos cookies con propósito",
+    "text": "Solo cookies técnicas necesarias para el funcionamiento. Sin tracking comercial.",
+    "accept": "Entendido"
+  },
+  "common": {
+    "learn_more": "Saber más",
+    "back_home": "Volver al inicio",
+    "loading": "Cargando…"
+  },
+  "notfound": {
+    "title": "Página no encontrada",
+    "text": "La página que buscas no existe o ha sido movida."
+  }
+}
