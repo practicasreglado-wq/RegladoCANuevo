@@ -2,6 +2,7 @@
   <section id="top" class="hero">
     <CanvasVideoBackground name="h4" :frame-count="79" trigger="#top" end-trigger="#sobre-nosotros" />
     <div class="hero__bg-overlay" aria-hidden="true"></div>
+    <div class="hero__particles" ref="particlesEl" aria-hidden="true"></div>
 
     <div class="container hero__shell">
       <aside class="hero__sidebar" aria-hidden="true">
@@ -31,15 +32,36 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
 import MagneticButton from '@/components/ui/MagneticButton.vue'
 import CanvasVideoBackground from '@/components/ui/CanvasVideoBackground.vue'
 import { scrollTo } from '@/composables/useLenis'
 
+const particlesEl = ref(null)
+
 function goTo(hash) {
   const el = document.querySelector(hash)
   if (el) scrollTo(el, { offset: -96 })
 }
+
+onMounted(() => {
+  for (let i = 0; i < 14; i++) {
+    const p    = document.createElement('span')
+    p.className = 'banner-particle'
+    const size  = (Math.random() * 4 + 2).toFixed(1)
+    p.style.cssText = [
+      `width:${size}px`,
+      `height:${size}px`,
+      `left:${(Math.random() * 100).toFixed(1)}%`,
+      `--dur:${(Math.random() * 7 + 6).toFixed(1)}s`,
+      `--delay:${(Math.random() * 10).toFixed(1)}s`,
+      `--drift:${((Math.random() - 0.5) * 70).toFixed(0)}px`,
+      `--op:${(Math.random() * 0.35 + 0.12).toFixed(2)}`,
+    ].join(';')
+    particlesEl.value?.appendChild(p)
+  }
+})
 </script>
 
 <style scoped>
@@ -151,7 +173,25 @@ function goTo(hash) {
   .hero__line { width: 44px; height: 1px; }
   .hero__eyebrow { writing-mode: initial; transform: none; }
 }
+.hero__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero__scroll-line::after { animation: none; }
+}
+
+/* Botón "Ver servicios" sobre fondo oscuro del hero */
+.btn--ghost {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+.btn--ghost:hover {
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--color-gold);
+  border-color: var(--color-gold);
 }
 </style>

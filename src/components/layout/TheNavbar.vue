@@ -14,7 +14,7 @@
         <a href="#top" class="nav__link" @click.prevent="goTo('#top')">{{ $t('nav.home') }}</a>
         <a href="#sobre-nosotros" class="nav__link" @click.prevent="goTo('#sobre-nosotros')">{{ $t('nav.about') }}</a>
         <div class="nav__dropdown" @mouseenter="dropdown = true" @mouseleave="dropdown = false">
-          <button class="nav__link nav__dropdown-trigger" @click="dropdown = !dropdown" :aria-expanded="dropdown">
+          <button class="nav__link nav__dropdown-trigger" @click="goTo('#servicios')" :aria-expanded="dropdown">
             {{ $t('nav.services') }}
             <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
@@ -82,10 +82,10 @@ async function goTo(hash) {
     return
   }
   if (hash === '#top') {
-    scrollTo(0)
+    scrollTo(0, { immediate: true })
   } else {
     const el = document.querySelector(hash)
-    if (el) scrollTo(el, { offset: -96 })
+    if (el) scrollTo(el, { offset: -96, immediate: true })
   }
   // actualizar url sin saltar (hash sin reload)
   history.replaceState(null, '', hash === '#top' ? '/' : hash)
@@ -108,7 +108,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   transition: background 350ms var(--ease-out), border-color 350ms var(--ease-out), height 350ms var(--ease-out);
 }
 .nav.is-scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.72);
   border-bottom-color: var(--color-border);
   height: 84px;
 }

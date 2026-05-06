@@ -8,7 +8,7 @@
       </header>
 
       <div class="services__grid">
-        <TiltCard v-for="(s, i) in services" :key="s.hash" class="services__card-wrap">
+        <TiltCard v-for="(s, i) in services" :key="s.hash" class="services__card-wrap" :max="14">
           <a :href="s.hash" class="services__card" @click.prevent="goTo(s.hash)" v-reveal="{ delay: (i % 4) + 1 }">
             <div class="services__icon" v-html="s.icon" aria-hidden="true"></div>
             <h3 class="services__card-title">{{ $t(s.titleKey) }}</h3>
@@ -49,16 +49,37 @@ const services = [
 </script>
 
 <style scoped>
+/* ── Cabecera de sección ── */
 .services__header { max-width: 720px; margin-bottom: 4rem; }
 .services__header > * + * { margin-top: 1rem; }
-.services__subtitle { color: var(--color-text-muted); font-size: var(--fs-lg); }
 
+/* Eyebrow en dorado */
+.eyebrow { color: var(--color-gold); }
+
+/* Título h2 (SplitHeading) en blanco */
+:deep(.split-word) { color: var(--color-white); }
+
+/* Subtítulo en blanco */
+.services__subtitle { color: rgba(255, 255, 255, 0.85); font-size: var(--fs-lg); }
+
+/* ── Grid 3+2 centrado ── */
 .services__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 1.5rem;
+  align-items: stretch;
 }
-.services__card-wrap { border-radius: var(--radius-lg); }
+
+/* Fila 1: 3 tarjetas ocupan 2 columnas cada una */
+.services__card-wrap:nth-child(-n+3) { grid-column: span 2; }
+
+/* Fila 2: 2 tarjetas centradas (desplazadas 1 columna) */
+.services__card-wrap:nth-child(4) { grid-column: 2 / 4; }
+.services__card-wrap:nth-child(5) { grid-column: 4 / 6; }
+
+.services__card-wrap { border-radius: var(--radius-lg); height: 100%; }
+
+/* ── Tarjeta ── */
 .services__card {
   display: block;
   position: relative;
@@ -80,19 +101,26 @@ const services = [
 }
 .services__card:hover { border-color: var(--color-gold); box-shadow: var(--shadow-md); }
 .services__card:hover::after { width: 100%; }
-.services__icon {
-  color: var(--color-gold);
-  margin-bottom: 1.5rem;
-}
-.services__card-title { font-size: var(--fs-xl); margin-bottom: 0.6rem; }
+
+.services__icon { color: var(--color-gold); margin-bottom: 1.5rem; }
+.services__card-title { font-size: var(--fs-xl); margin-bottom: 0.6rem; color: var(--color-navy); }
 .services__card-text { color: var(--color-text-muted); font-size: var(--fs-sm); margin-bottom: 1.5rem; line-height: 1.6; }
 .services__card-cta {
   font-size: var(--fs-sm);
   font-weight: 500;
-  color: var(--color-gold-text);
+  color: var(--color-gold);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
 .services__card:hover .btn__arrow { transform: translateX(4px); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .services__grid { grid-template-columns: repeat(2, 1fr); }
+  .services__card-wrap { grid-column: span 1 !important; height: auto; }
+}
+@media (max-width: 560px) {
+  .services__grid { grid-template-columns: 1fr; }
+}
 </style>

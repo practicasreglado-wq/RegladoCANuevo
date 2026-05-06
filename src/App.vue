@@ -1,6 +1,5 @@
 <template>
-  <a class="skip-link" href="#main">{{ $t('common.back_home') }}</a>
-  <ScrollProgress />
+<ScrollProgress />
   <CursorBlend />
   <Logo3DBackground />
   <div class="grain" aria-hidden="true"></div>
@@ -32,18 +31,6 @@ onMounted(() => { initLenis() })
 </script>
 
 <style scoped>
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  padding: 0.6rem 1rem;
-  background: var(--color-navy);
-  color: var(--color-white);
-  z-index: 10000;
-  transition: top 200ms;
-}
-.skip-link:focus { top: 0; }
-
 .page-enter-active, .page-leave-active {
   transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
 }
