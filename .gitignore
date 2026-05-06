@@ -34,3 +34,7 @@ Thumbs.db
 
 # Si usas XAMPP y se generan archivos temporales
 php_error_log
+
+# Configuración local de Claude Code
+CLAUDE.md
+.claude/

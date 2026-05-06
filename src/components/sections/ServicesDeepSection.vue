@@ -1,34 +1,83 @@
 <template>
-  <div class="deep">
-    <section v-for="(s, i) in blocks" :key="s.id" :id="s.id" class="deep__block" :class="{ 'deep__block--alt': i % 2 === 1 }">
-      <div class="container deep__inner">
-        <div class="deep__copy">
-          <p class="eyebrow" v-reveal>0{{ i + 1 }} · {{ $t('services_section.eyebrow') }}</p>
-          <SplitHeading :text="$t(s.titleKey)" tag="h2" />
-          <p class="deep__lead" v-reveal="{ delay: 1 }">{{ s.lead }}</p>
-          <ul class="deep__list">
-            <li v-for="(item, j) in s.items" :key="j" v-reveal="{ delay: (j % 4) + 1 }">{{ item }}</li>
-          </ul>
-        </div>
-        <aside class="deep__aside" v-reveal="{ delay: 2 }">
-          <figure class="deep__figure">
+  <section
+    ref="sectionEl"
+    class="deep"
+    :class="{ 'deep--scroll-carousel': isScrollCarousel, 'is-in-view': isInView }"
+    :style="sectionStyle"
+  >
+    <span
+      v-for="(s, i) in blocks"
+      :id="s.id"
+      :key="`${s.id}-anchor`"
+      class="deep__anchor"
+      :style="{ top: `${i * 100}svh` }"
+      aria-hidden="true"
+    ></span>
+
+    <div class="deep__sticky">
+      <div ref="trackEl" class="deep__track" :style="trackStyle">
+        <article
+          v-for="(s, i) in blocks"
+          :key="s.id"
+          class="deep__panel"
+          :class="{ 'is-active': activeIndex === i }"
+          :aria-current="activeIndex === i ? 'step' : undefined"
+        >
+          <div class="deep__media" aria-hidden="true">
             <img :src="s.image" :alt="$t(s.titleKey)" loading="lazy" />
-            <figcaption>
-              <span class="deep__num">0{{ i + 1 }}</span>
-              <span class="deep__cap">{{ $t(s.titleKey) }}</span>
-            </figcaption>
-          </figure>
-          <a href="#contacto" class="btn btn--ghost" @click.prevent="goTo('#contacto')">
-            {{ $t('hero.cta') }} <span class="btn__arrow">→</span>
-          </a>
-        </aside>
+          </div>
+          <div class="deep__shade" aria-hidden="true"></div>
+
+          <div class="container deep__panel-inner">
+            <div class="deep__content">
+              <p class="eyebrow deep__eyebrow">{{ pad(i + 1) }} / {{ totalLabel }}</p>
+              <h2 class="deep__title">{{ $t(s.titleKey) }}</h2>
+              <p class="deep__lead">{{ s.lead }}</p>
+
+              <ul class="deep__list">
+                <li v-for="item in s.items" :key="item">{{ item }}</li>
+              </ul>
+
+              <a href="#contacto" class="btn btn--primary deep__cta" @click.prevent="goTo('#contacto')">
+                {{ $t('hero.cta') }} <span class="btn__arrow">→</span>
+              </a>
+            </div>
+
+            <aside class="deep__card" aria-hidden="true">
+              <span class="deep__card-num">{{ pad(i + 1) }}</span>
+              <span class="deep__card-title">{{ $t(s.titleKey) }}</span>
+            </aside>
+          </div>
+        </article>
       </div>
-    </section>
-  </div>
+
+      <div class="deep__hud" aria-label="Progreso de servicios">
+        <div class="deep__hud-top">
+          <span>{{ currentLabel }}</span>
+          <span>{{ totalLabel }}</span>
+        </div>
+        <div class="deep__progress" aria-hidden="true">
+          <span :style="{ width: `${Math.max(progress, minimumProgress) * 100}%` }"></span>
+        </div>
+        <div class="deep__hud-bottom">
+          <p>{{ isWideViewport ? 'Sigue bajando' : 'Sigue bajando para avanzar' }}</p>
+          <div class="deep__dots" aria-hidden="true">
+            <button
+              v-for="(_, i) in blocks"
+              :key="i"
+              type="button"
+              :class="{ 'is-active': activeIndex === i }"
+              @click="goToService(i)"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup>
-import SplitHeading from '@/components/ui/SplitHeading.vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { scrollTo } from '@/composables/useLenis'
 
 import imgInspecciones from '@/assets/images/inspeccion_tributaria.png'
@@ -37,10 +86,105 @@ import imgTecnica from '@/assets/images/tecnica_hero_bg.png'
 import imgEconomica from '@/assets/images/economica_hero_bg.png'
 import imgEnergetica from '@/assets/images/consultoria_energetica.png'
 
+const sectionEl = ref(null)
+const trackEl = ref(null)
+const activeIndex = ref(0)
+const progress = ref(0)
+const isScrollCarousel = ref(false)
+const isWideViewport = ref(false)
+const isInView = ref(false)
+
+let frame = null
+let reducedMotionQuery = null
+let wideViewportQuery = null
+
 function goTo(hash) {
   const el = document.querySelector(hash)
   if (el) scrollTo(el, { offset: -70 })
 }
+
+function goToService(index) {
+  const target = document.getElementById(blocks[index]?.id)
+  if (target) scrollTo(target, { offset: 0 })
+}
+
+function pad(value) {
+  return String(value).padStart(2, '0')
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value))
+}
+
+function updateMode() {
+  isScrollCarousel.value = !reducedMotionQuery?.matches
+  isWideViewport.value = Boolean(wideViewportQuery?.matches)
+  scheduleUpdate()
+}
+
+function scheduleUpdate() {
+  if (frame) return
+  frame = requestAnimationFrame(() => {
+    frame = null
+    updateProgress()
+  })
+}
+
+function updateProgress() {
+  if (!sectionEl.value) return
+
+  const section = sectionEl.value
+  const maxIndex = blocks.length - 1
+  const sectionRect = section.getBoundingClientRect()
+  isInView.value = sectionRect.top < window.innerHeight && sectionRect.bottom > 0
+
+  if (isScrollCarousel.value) {
+    const scrollable = Math.max(1, section.offsetHeight - window.innerHeight)
+    const nextProgress = clamp(-sectionRect.top / scrollable, 0, 1)
+
+    progress.value = nextProgress
+    activeIndex.value = clamp(Math.round(nextProgress * maxIndex), 0, maxIndex)
+    return
+  }
+
+  const panels = Array.from(section.querySelectorAll('.deep__panel'))
+  const viewportCenter = window.innerHeight / 2
+  let closestIndex = 0
+  let closestDistance = Number.POSITIVE_INFINITY
+
+  panels.forEach((panel, index) => {
+    const rect = panel.getBoundingClientRect()
+    const panelCenter = rect.top + rect.height / 2
+    const distance = Math.abs(panelCenter - viewportCenter)
+
+    if (distance < closestDistance) {
+      closestDistance = distance
+      closestIndex = index
+    }
+  })
+
+  activeIndex.value = closestIndex
+  progress.value = maxIndex ? closestIndex / maxIndex : 1
+}
+
+onMounted(() => {
+  wideViewportQuery = window.matchMedia('(min-width: 901px)')
+  reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+  updateMode()
+  window.addEventListener('scroll', scheduleUpdate, { passive: true })
+  window.addEventListener('resize', updateMode, { passive: true })
+  wideViewportQuery.addEventListener?.('change', updateMode)
+  reducedMotionQuery.addEventListener?.('change', updateMode)
+})
+
+onUnmounted(() => {
+  if (frame) cancelAnimationFrame(frame)
+  window.removeEventListener('scroll', scheduleUpdate)
+  window.removeEventListener('resize', updateMode)
+  wideViewportQuery?.removeEventListener?.('change', updateMode)
+  reducedMotionQuery?.removeEventListener?.('change', updateMode)
+})
 
 const blocks = [
   {
@@ -109,81 +253,393 @@ const blocks = [
     ]
   }
 ]
+
+const totalLabel = computed(() => pad(blocks.length))
+const currentLabel = computed(() => pad(activeIndex.value + 1))
+const minimumProgress = computed(() => 1 / blocks.length)
+
+const sectionStyle = computed(() => (
+  isScrollCarousel.value ? { height: `${blocks.length * 100}svh` } : undefined
+))
+
+const trackStyle = computed(() => {
+  if (!isScrollCarousel.value) return undefined
+  const x = progress.value * (blocks.length - 1) * 100
+  return { transform: `translate3d(-${x}vw, 0, 0)` }
+})
 </script>
 
 <style scoped>
-.deep__block {
-  padding: clamp(4rem, 9vw, 7rem) 0;
-  border-top: 1px solid var(--color-border);
-  scroll-margin-top: var(--nav-height);
-  background: var(--color-white);
+.deep {
+  position: relative;
+  background: var(--color-navy-deep);
+  color: var(--color-white);
+  overflow: clip;
 }
-.deep__block--alt { background: var(--color-bg-light); }
-.deep__inner {
+
+.deep__anchor {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  scroll-margin-top: 0;
+}
+
+.deep__sticky {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.deep--scroll-carousel .deep__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+}
+
+.deep__track {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100svh;
+  will-change: transform;
+}
+
+.deep--scroll-carousel .deep__track {
+  flex-direction: row;
+  width: max-content;
+  height: 100%;
+}
+
+.deep__panel {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+}
+
+.deep--scroll-carousel .deep__panel {
+  width: 100vw;
+  height: 100svh;
+  flex: 0 0 100vw;
+}
+
+.deep__media,
+.deep__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.deep__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.95) contrast(1.04);
+  transform: scale(1.04);
+  transition: transform 1400ms var(--ease-out);
+}
+
+.deep__panel.is-active .deep__media img {
+  transform: scale(1);
+}
+
+.deep__shade {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(17, 30, 51, 0.82) 0%, rgba(17, 30, 51, 0.62) 42%, rgba(17, 30, 51, 0.22) 100%),
+    linear-gradient(180deg, rgba(17, 30, 51, 0.14), rgba(17, 30, 51, 0.58));
+}
+
+.deep__panel-inner {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: clamp(2rem, 6vw, 5rem);
-  align-items: start;
+  grid-template-columns: minmax(0, 0.95fr) minmax(220px, 0.35fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  padding-top: clamp(6rem, 11vh, 8rem);
+  padding-bottom: clamp(8rem, 15vh, 11rem);
 }
-.deep__block--alt .deep__inner { grid-template-columns: 1fr 1.4fr; }
-.deep__block--alt .deep__copy { order: 2; }
 
-.deep__copy > * + * { margin-top: 1.2rem; }
-.deep__lead { font-size: var(--fs-lg); color: var(--color-text-muted); line-height: 1.7; max-width: 60ch; }
+.deep__content {
+  max-width: 780px;
+}
 
-.deep__list { margin-top: 2rem; display: grid; gap: 0; }
+.deep__content > * + * {
+  margin-top: 1.2rem;
+}
+
+.deep__eyebrow {
+  color: var(--color-gold);
+}
+
+.deep__eyebrow::before {
+  background: var(--color-gold);
+}
+
+.deep__title {
+  color: var(--color-white);
+  font-size: clamp(2.35rem, 4.6vw, 4.9rem);
+  max-width: 12ch;
+}
+
+.deep--scroll-carousel .deep__eyebrow {
+  font-size: clamp(0.66rem, 0.5vw + 0.54rem, 0.78rem);
+  letter-spacing: 0.14em;
+}
+
+.deep__lead {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--fs-lg);
+  line-height: 1.7;
+  max-width: 62ch;
+}
+
+.deep__list {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 760px;
+  margin-top: 2rem;
+}
+
 .deep__list li {
   position: relative;
-  padding: 1rem 0 1rem 1.8rem;
-  border-bottom: 1px solid var(--color-border);
+  padding: 0.78rem 0 0.78rem 1.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.94);
   font-size: var(--fs-base);
-  line-height: 1.7;
+  line-height: 1.55;
 }
+
 .deep__list li::before {
   content: '';
   position: absolute;
-  left: 0; top: 1.55rem;
-  width: 14px; height: 1px;
+  left: 0;
+  top: 1.55rem;
+  width: 14px;
+  height: 1px;
   background: var(--color-gold);
-  transition: width var(--t-base);
+  transition: width var(--t-base) var(--ease-out);
 }
-.deep__list li:hover::before { width: 24px; }
 
-.deep__aside { position: sticky; top: 110px; display: grid; gap: 1.5rem; }
-.deep__figure {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
+.deep__list li:hover::before {
+  width: 24px;
+}
+
+.deep__cta {
+  margin-top: 2.2rem;
+}
+
+.deep__card {
+  justify-self: end;
+  width: min(100%, 280px);
+  padding: 1.3rem;
+  border: 1px solid rgba(201, 168, 76, 0.34);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  background: var(--color-navy);
-}
-.deep__figure img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 1.2s var(--ease-out);
-}
-.deep__figure:hover img { transform: scale(1.05); }
-.deep__figure figcaption {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 1.5rem;
-  background: linear-gradient(180deg, transparent, rgba(17,30,51,0.85));
+  background: rgba(17, 30, 51, 0.52);
   color: var(--color-white);
-  display: flex; align-items: baseline; gap: 0.8rem;
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-md);
 }
-.deep__num {
+
+.deep__card-num {
+  display: block;
   font-family: var(--font-display);
   color: var(--color-gold);
-  font-size: 1.8rem;
-  letter-spacing: -0.02em;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 0.9;
 }
-.deep__cap { font-family: var(--font-display); font-size: var(--fs-lg); }
+
+.deep__card-title {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.15;
+}
+
+.deep__hud {
+  position: absolute;
+  left: clamp(1.25rem, 4vw, 2.5rem);
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  bottom: 1.35rem;
+  z-index: 4;
+  color: var(--color-white);
+  pointer-events: none;
+}
+
+.deep__hud-top,
+.deep__hud-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.deep__hud-top {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.deep__progress {
+  height: 2px;
+  margin: 0.65rem 0 0.7rem;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+.deep__progress span {
+  display: block;
+  height: 100%;
+  background: var(--color-gold);
+  transition: width var(--t-base) var(--ease-out);
+}
+
+.deep__hud-bottom p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.deep__dots {
+  display: inline-flex;
+  gap: 0.5rem;
+  pointer-events: auto;
+}
+
+.deep__dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.42);
+  transition: width var(--t-base) var(--ease-out),
+              background var(--t-base) var(--ease-out);
+}
+
+.deep__dots button.is-active {
+  width: 28px;
+  background: var(--color-gold);
+}
+
+@media (max-width: 1100px) {
+  .deep__panel-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .deep__card {
+    display: none;
+  }
+}
 
 @media (max-width: 900px) {
-  .deep__inner, .deep__block--alt .deep__inner { grid-template-columns: 1fr; }
-  .deep__block--alt .deep__copy { order: 0; }
-  .deep__aside { position: static; }
-  .deep__figure { aspect-ratio: 3 / 2; }
+  .deep {
+    overflow: clip;
+  }
+
+  .deep__sticky {
+    overflow: hidden;
+  }
+
+  .deep__panel {
+    min-height: 100svh;
+    align-items: end;
+  }
+
+  .deep__panel-inner {
+    padding-top: 6rem;
+    padding-bottom: 9rem;
+  }
+
+  .deep__shade {
+    background:
+      linear-gradient(180deg, rgba(17, 30, 51, 0.24) 0%, rgba(17, 30, 51, 0.62) 48%, rgba(17, 30, 51, 0.86) 100%),
+      linear-gradient(90deg, rgba(17, 30, 51, 0.68), rgba(17, 30, 51, 0.26));
+  }
+
+  .deep__title {
+    font-size: clamp(2.1rem, 9vw, 3.25rem);
+    max-width: 12ch;
+  }
+
+  .deep__list {
+    gap: 0.35rem;
+  }
+
+  .deep__list li {
+    padding-top: 0.62rem;
+    padding-bottom: 0.62rem;
+    font-size: var(--fs-sm);
+  }
+
+  .deep__hud {
+    position: absolute;
+    bottom: 1rem;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (max-width: 560px) {
+  .deep__panel-inner {
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+  }
+
+  .deep__title {
+    font-size: clamp(2rem, 12vw, 3.4rem);
+  }
+
+  .deep__lead {
+    font-size: var(--fs-base);
+  }
+
+  .deep__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .deep__hud-bottom {
+    align-items: flex-end;
+  }
+
+  .deep__hud-bottom p {
+    max-width: 18ch;
+    line-height: 1.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deep {
+    height: auto !important;
+  }
+
+  .deep__sticky {
+    position: relative !important;
+    height: auto !important;
+  }
+
+  .deep__track {
+    transform: none !important;
+    flex-direction: column !important;
+  }
+
+  .deep__panel {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100svh;
+  }
+
+  .deep__media img,
+  .deep__progress span,
+  .deep__dots button {
+    transition: none !important;
+  }
 }
 </style>
