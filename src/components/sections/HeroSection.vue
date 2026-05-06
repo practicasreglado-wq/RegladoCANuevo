@@ -38,7 +38,7 @@ import { scrollTo } from '@/composables/useLenis'
 
 function goTo(hash) {
   const el = document.querySelector(hash)
-  if (el) scrollTo(el, { offset: -70 })
+  if (el) scrollTo(el, { offset: -96 })
 }
 </script>
 
