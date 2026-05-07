@@ -10,7 +10,7 @@
       <div class="services__grid">
         <TiltCard v-for="(s, i) in services" :key="s.hash" class="services__card-wrap" :max="14">
           <a :href="s.hash" class="services__card" @click.prevent="goTo(s.hash)" v-reveal="{ delay: (i % 4) + 1 }">
-            <div class="services__icon" v-html="s.icon" aria-hidden="true"></div>
+            <div class="services__icon" :style="{ '-webkit-mask-image': `url(${s.icon})`, 'mask-image': `url(${s.icon})` }" aria-hidden="true"></div>
             <h3 class="services__card-title">{{ $t(s.titleKey) }}</h3>
             <p class="services__card-text">{{ s.text }}</p>
             <span class="services__card-cta">{{ $t('services_section.cta') }} <span class="btn__arrow">→</span></span>
@@ -31,24 +31,21 @@ function goTo(hash) {
   if (el) scrollTo(el, { offset: -70 })
 }
 
-const ICONS = {
-  scale: '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 4v24M6 28h20M9 8l-5 10h10L9 8zM23 8l-5 10h10L23 8z"/></svg>',
-  gavel: '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 6l8 8-2 2-8-8 2-2zM6 22l8-8 4 4-8 8-4-4zM4 28h12"/></svg>',
-  cog: '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="16" cy="16" r="4"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"/></svg>',
-  chart: '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 28h24M8 24V14M14 24V8M20 24v-6M26 24v-12"/></svg>',
-  bolt: '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M18 4L7 18h7l-3 10 11-14h-7l3-10z"/></svg>'
-}
-
 const services = [
-  { hash: '#inspecciones', titleKey: 'services.inspecciones', text: 'Auditoría tributaria, regularización de padrones y defensa en vía administrativa.', icon: ICONS.scale },
-  { hash: '#juridica', titleKey: 'services.juridica', text: 'Asesoramiento jurídico integral, informes, dictámenes y representación letrada.', icon: ICONS.gavel },
-  { hash: '#tecnica', titleKey: 'services.tecnica', text: 'Urbanismo, planeamiento, licencias y proyectos de obra municipal.', icon: ICONS.cog },
-  { hash: '#economica', titleKey: 'services.economica', text: 'Presupuestos, control financiero, estabilidad y plan de saneamiento.', icon: ICONS.chart },
-  { hash: '#energetica', titleKey: 'services.energetica', text: 'Auditorías energéticas, transición y eficiencia en edificios públicos.', icon: ICONS.bolt }
+  { hash: '#inspecciones', titleKey: 'services.inspecciones', text: 'Auditoría tributaria, regularización de padrones y defensa en vía administrativa.', icon: '/iconos/seguridad.png' },
+  { hash: '#juridica', titleKey: 'services.juridica', text: 'Asesoramiento jurídico integral, informes, dictámenes y representación letrada.', icon: '/iconos/ley.png' },
+  { hash: '#tecnica', titleKey: 'services.tecnica', text: 'Urbanismo, planeamiento, licencias y proyectos de obra municipal.', icon: '/iconos/plano.png' },
+  { hash: '#economica', titleKey: 'services.economica', text: 'Presupuestos, control financiero, estabilidad y plan de saneamiento.', icon: '/iconos/auditoria.png' },
+  { hash: '#energetica', titleKey: 'services.energetica', text: 'Auditorías energéticas, transición y eficiencia en edificios públicos.', icon: '/iconos/factura-de-electricidad.png' }
 ]
 </script>
 
 <style scoped>
+.section {
+  padding-top: clamp(5rem, 12vw, 10rem);
+  padding-bottom: clamp(10rem, 20vw, 18rem); /* Aumentado para ver el fondo */
+}
+
 /* ── Cabecera de sección ── */
 .services__header { max-width: 720px; margin-bottom: 4rem; }
 .services__header > * + * { margin-top: 1rem; }
@@ -102,7 +99,20 @@ const services = [
 .services__card:hover { border-color: var(--color-gold); box-shadow: var(--shadow-md); }
 .services__card:hover::after { width: 100%; }
 
-.services__icon { color: var(--color-gold); margin-bottom: 1.5rem; }
+.services__icon {
+  width: 42px;
+  height: 42px;
+  background-color: var(--color-gold);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  margin-bottom: 1.5rem;
+  transition: transform var(--t-base) var(--ease-out);
+}
+.services__card:hover .services__icon { transform: translateY(-5px) scale(1.05); }
 .services__card-title { font-size: var(--fs-xl); margin-bottom: 0.6rem; color: var(--color-navy); }
 .services__card-text { color: var(--color-text-muted); font-size: var(--fs-sm); margin-bottom: 1.5rem; line-height: 1.6; }
 .services__card-cta {
@@ -112,6 +122,18 @@ const services = [
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  position: relative;
+}
+.services__card-cta::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: currentColor;
+  transition: width var(--t-base) var(--ease-out);
+}
+.services__card:hover .services__card-cta::after {
+  width: calc(100% - 1.5rem); /* Ajuste para no subrayar la flecha */
 }
 .services__card:hover .btn__arrow { transform: translateX(4px); }
 

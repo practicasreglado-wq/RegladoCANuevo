@@ -29,17 +29,6 @@ function onScroll() {
 onMounted(() => {
   window.addEventListener('scroll', onScroll, { passive: true })
 
-  // Opción C: highlight bidireccional sobre toda la sección
-  const sectionIo = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting && entry.boundingClientRect.top > 0) {
-      sectionEl.value?.classList.remove('hl-down')
-      void sectionEl.value?.offsetWidth // fuerza reflow para reiniciar la animación
-      sectionEl.value?.classList.add('hl-down')
-    } else {
-      sectionEl.value?.classList.remove('hl-down')
-    }
-  }, { threshold: 0.1 })
-  if (sectionEl.value) sectionIo.observe(sectionEl.value)
 
   // Opción D: partículas doradas flotantes generadas aleatoriamente
   for (let i = 0; i < 14; i++) {
@@ -88,26 +77,13 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .banner__inner > * + * { margin-top: 1.5rem; }
 .banner__inner :deep(h2) { color: var(--color-white); font-weight: 300; }
 
-/* ── Highlight bidireccional sobre toda la sección (C) ── */
+/* -- Highlight bidireccional eliminado -- */
 .banner__text {
   color: rgba(255,255,255,0.78);
   font-size: var(--fs-lg);
   line-height: 1.7;
   max-width: 60ch;
 }
-.banner::after {
-  content: '';
-  position: absolute;
-  left: 0; width: 100%; height: 5em;
-  background: linear-gradient(180deg, transparent, rgba(201, 168, 76, 0.22), transparent);
-  top: 0;
-  pointer-events: none;
-  z-index: 2;
-}
-.banner.hl-down::after {
-  animation: hl-down 5s ease-in-out 0.3s forwards;
-}
-@keyframes hl-down { from { transform: translateY(-100%); } to { transform: translateY(200vh); } }
 
 /* ── Contenedor partículas (D) ── */
 .banner__particles {

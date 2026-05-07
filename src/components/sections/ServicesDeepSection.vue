@@ -87,6 +87,11 @@ import imgTecnica from '@/assets/images/tecnica_hero_bg.png'
 import imgEconomica from '@/assets/images/economica_hero_bg.png'
 import imgEnergetica from '@/assets/images/consultoria_energetica.png'
 
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 const sectionEl = ref(null)
 const trackEl = ref(null)
 const activeIndex = ref(0)
@@ -95,6 +100,7 @@ const isScrollCarousel = ref(false)
 const isWideViewport = ref(false)
 const isInView = ref(false)
 
+let stInstance = null
 let frame = null
 let reducedMotionQuery = null
 let wideViewportQuery = null
@@ -102,11 +108,6 @@ let wideViewportQuery = null
 function goTo(hash) {
   const el = document.querySelector(hash)
   if (el) scrollTo(el, { offset: -70 })
-}
-
-function goToService(index) {
-  const target = document.getElementById(blocks[index]?.id)
-  if (target) scrollTo(target, { offset: 0 })
 }
 
 function pad(value) {
@@ -130,7 +131,6 @@ function scheduleUpdate() {
     updateProgress()
   })
 }
-
 function updateProgress() {
   if (!sectionEl.value) return
 
@@ -147,25 +147,6 @@ function updateProgress() {
     activeIndex.value = clamp(Math.round(nextProgress * maxIndex), 0, maxIndex)
     return
   }
-
-  const panels = Array.from(section.querySelectorAll('.deep__panel'))
-  const viewportCenter = window.innerHeight / 2
-  let closestIndex = 0
-  let closestDistance = Number.POSITIVE_INFINITY
-
-  panels.forEach((panel, index) => {
-    const rect = panel.getBoundingClientRect()
-    const panelCenter = rect.top + rect.height / 2
-    const distance = Math.abs(panelCenter - viewportCenter)
-
-    if (distance < closestDistance) {
-      closestDistance = distance
-      closestIndex = index
-    }
-  })
-
-  activeIndex.value = closestIndex
-  progress.value = maxIndex ? closestIndex / maxIndex : 1
 }
 
 onMounted(() => {
@@ -265,7 +246,8 @@ const sectionStyle = computed(() => (
 
 const trackStyle = computed(() => {
   if (!isScrollCarousel.value) return undefined
-  const x = progress.value * (blocks.length - 1) * 100
+  // Ahora usamos el índice activo multiplicado por 100 para que el movimiento sea por "páginas" completas
+  const x = activeIndex.value * 100
   return { transform: `translate3d(-${x}vw, 0, 0)` }
 })
 </script>
@@ -305,6 +287,7 @@ const trackStyle = computed(() => {
   width: 100%;
   min-height: 100svh;
   will-change: transform;
+  transition: transform 1.1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .deep--scroll-carousel .deep__track {
