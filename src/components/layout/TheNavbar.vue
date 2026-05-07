@@ -85,7 +85,11 @@ async function goTo(hash) {
     scrollTo(0, { immediate: true })
   } else {
     const el = document.querySelector(hash)
-    if (el) scrollTo(el, { offset: -96, immediate: true })
+    if (el) {
+      // Los anchors del carousel de servicios necesitan offset 0 (coordenadas exactas de slide)
+      const offset = el.classList.contains('deep__anchor') ? 0 : -96
+      scrollTo(el, { offset, immediate: true })
+    }
   }
   // actualizar url sin saltar (hash sin reload)
   history.replaceState(null, '', hash === '#top' ? '/' : hash)

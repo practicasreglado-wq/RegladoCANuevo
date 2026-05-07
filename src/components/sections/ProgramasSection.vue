@@ -1,5 +1,6 @@
 <template>
   <section id="subvenciones" class="section section--dark programas">
+    <div class="programas__particles" ref="particlesEl" aria-hidden="true"></div>
     <div class="container">
       <header class="programas__header">
         <p class="eyebrow" v-reveal>Financiación europea</p>
@@ -36,7 +37,28 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
+
+const particlesEl = ref(null)
+
+onMounted(() => {
+  for (let i = 0; i < 14; i++) {
+    const p    = document.createElement('span')
+    p.className = 'banner-particle'
+    const size  = (Math.random() * 4 + 2).toFixed(1)
+    p.style.cssText = [
+      `width:${size}px`,
+      `height:${size}px`,
+      `left:${(Math.random() * 100).toFixed(1)}%`,
+      `--dur:${(Math.random() * 7 + 6).toFixed(1)}s`,
+      `--delay:${(Math.random() * 10).toFixed(1)}s`,
+      `--drift:${((Math.random() - 0.5) * 70).toFixed(0)}px`,
+      `--op:${(Math.random() * 0.35 + 0.12).toFixed(2)}`,
+    ].join(';')
+    particlesEl.value?.appendChild(p)
+  }
+})
 
 const programas = [
   { title: 'Next Generation EU', text: 'Plan de Recuperación, Transformación y Resiliencia. PERTE, MRR, transferencias a entidades locales.' },
@@ -57,16 +79,29 @@ const contratacionesItems = [
 </script>
 
 <style scoped>
-.programas { scroll-margin-top: var(--nav-height); padding: clamp(5rem, 10vw, 8rem) 0; }
-.programas__header { max-width: 720px; margin-bottom: 4rem; }
+.programas {
+  scroll-margin-top: var(--nav-height);
+  padding: clamp(5rem, 10vw, 8rem) 0;
+  position: relative;
+  overflow: hidden;
+}
+.programas__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.programas__header { max-width: 720px; margin-bottom: 4rem; position: relative; z-index: 1; }
 .programas__header > * + * { margin-top: 1rem; }
 .programas__lead { color: rgba(255,255,255,0.78); font-size: var(--fs-lg); line-height: 1.7; }
 .programas__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
 }
 .programas__card {
   background: var(--color-navy);
@@ -95,9 +130,25 @@ const contratacionesItems = [
 .contrataciones__lead { font-size: var(--fs-lg); color: var(--color-text-muted); line-height: 1.7; }
 .contrataciones__list { margin-top: 2rem; }
 .contrataciones__list li {
-  padding: 0.9rem 0;
+  padding: 0.9rem 0 0.9rem 1.6rem;
   border-bottom: 1px solid var(--color-border);
   font-size: var(--fs-base);
+  position: relative;
+}
+.contrataciones__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scale(1);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  transition: transform 250ms var(--ease-out);
+}
+.contrataciones__list li:hover::before {
+  transform: translateY(-50%) scale(1.7);
 }
 .contrataciones__cite {
   position: sticky;
@@ -119,7 +170,11 @@ const contratacionesItems = [
 .contrataciones__cite p { font-family: var(--font-display); font-size: var(--fs-lg); line-height: 1.5; }
 
 @media (max-width: 900px) {
+  .programas__grid { grid-template-columns: repeat(2, 1fr); }
   .contrataciones__inner { grid-template-columns: 1fr; }
   .contrataciones__cite { position: static; }
+}
+@media (max-width: 560px) {
+  .programas__grid { grid-template-columns: 1fr; }
 }
 </style>

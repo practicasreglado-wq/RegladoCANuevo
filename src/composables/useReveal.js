@@ -10,13 +10,12 @@ function getObserver() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible')
-          // si es un splitHeading, animar palabras hijas
           entry.target.querySelectorAll('.split-word').forEach((w) => w.classList.add('is-visible'))
           observer.unobserve(entry.target)
         }
       })
     },
-    { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+    { threshold: 0, rootMargin: '0px' }
   )
   return observer
 }

@@ -5,9 +5,9 @@
         <p class="eyebrow" v-reveal>{{ $t('ordenanzas.eyebrow') }}</p>
         <SplitHeading :text="$t('ordenanzas.title')" tag="h2" />
         <p class="ordenanzas__subtitle" v-reveal="{ delay: 1 }">{{ $t('ordenanzas.subtitle') }}</p>
-        <a href="#contacto" class="btn btn--ghost ordenanzas__cta" @click.prevent="goTo('#contacto')" v-reveal="{ delay: 2 }">
+        <MagneticButton tag="a" href="#contacto" class="btn btn--ghost ordenanzas__cta" @click.prevent="goTo('#contacto')" v-reveal="{ delay: 2 }">
           {{ $t('common.learn_more') }} <span class="btn__arrow">→</span>
-        </a>
+        </MagneticButton>
       </div>
       <ul class="ordenanzas__list">
         <li v-for="(item, i) in items" :key="i" v-reveal="{ delay: (i % 4) + 1 }">
@@ -23,6 +23,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
+import MagneticButton from '@/components/ui/MagneticButton.vue'
 import { scrollTo } from '@/composables/useLenis'
 const { tm } = useI18n()
 function goTo(h) { const el = document.querySelector(h); if (el) scrollTo(el, { offset: -70 }) }
