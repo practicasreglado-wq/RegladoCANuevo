@@ -38,9 +38,9 @@
                 <li v-for="item in s.items" :key="item">{{ item }}</li>
               </ul>
 
-              <a href="#contacto" class="btn btn--primary deep__cta" @click.prevent="goTo('#contacto')">
+              <MagneticButton tag="a" href="#contacto" class="btn btn--primary deep__cta" @click.prevent="goTo('#contacto')">
                 {{ $t('hero.cta') }} <span class="btn__arrow">→</span>
-              </a>
+              </MagneticButton>
             </div>
 
             <aside class="deep__card" aria-hidden="true">
@@ -78,6 +78,7 @@
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import MagneticButton from '@/components/ui/MagneticButton.vue'
 import { scrollTo } from '@/composables/useLenis'
 
 import imgInspecciones from '@/assets/images/inspeccion_tributaria.png'
@@ -362,6 +363,8 @@ const trackStyle = computed(() => {
   align-items: end;
   padding-top: clamp(6rem, 11vh, 8rem);
   padding-bottom: clamp(8rem, 15vh, 11rem);
+  padding-left: clamp(2rem, 8vw, 7rem);
+  padding-right: clamp(2rem, 8vw, 7rem);
 }
 
 .deep__content {
@@ -369,7 +372,7 @@ const trackStyle = computed(() => {
 }
 
 .deep__content > * + * {
-  margin-top: 1.2rem;
+  margin-top: 0.8rem;
 }
 
 .deep__eyebrow {
@@ -382,7 +385,7 @@ const trackStyle = computed(() => {
 
 .deep__title {
   color: var(--color-white);
-  font-size: clamp(2.35rem, 4.6vw, 4.9rem);
+  font-size: clamp(1.9rem, 3.4vw, 3.6rem);
   max-width: 12ch;
 }
 
@@ -400,9 +403,9 @@ const trackStyle = computed(() => {
 
 .deep__list {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.3rem;
   max-width: 760px;
-  margin-top: 2rem;
+  margin-top: 1.2rem;
 }
 
 .deep__list li {
@@ -538,6 +541,41 @@ const trackStyle = computed(() => {
   }
 }
 
+@media (min-width: 901px) {
+  .deep__content {
+    max-width: none;
+  }
+
+  .deep__lead {
+    max-width: 100%;
+    font-size: clamp(1.05rem, 0.55vw + 0.95rem, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .deep__list {
+    max-width: 900px;
+  }
+
+  .deep__cta {
+    display: flex;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 1101px) {
+  .deep__panel-inner {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: clamp(2rem, 4vw, 4.5rem);
+  }
+
+  .deep__card {
+    width: 280px;
+    min-width: 280px;
+  }
+}
+
 @media (max-width: 900px) {
   .deep {
     overflow: clip;
@@ -549,12 +587,16 @@ const trackStyle = computed(() => {
 
   .deep__panel {
     min-height: 100svh;
-    align-items: end;
+    align-items: stretch;
   }
 
   .deep__panel-inner {
-    padding-top: 6rem;
-    padding-bottom: 9rem;
+    --deep-mobile-top: clamp(4.75rem, 9svh, 6rem);
+    --deep-mobile-bottom: clamp(4.75rem, 8svh, 5.75rem);
+    min-height: 100svh;
+    align-items: center;
+    padding-top: var(--deep-mobile-top);
+    padding-bottom: var(--deep-mobile-bottom);
   }
 
   .deep__shade {
@@ -563,24 +605,51 @@ const trackStyle = computed(() => {
       linear-gradient(90deg, rgba(17, 30, 51, 0.68), rgba(17, 30, 51, 0.26));
   }
 
+  .deep__content {
+    max-width: min(100%, 42rem);
+  }
+
+  .deep__content > * + * {
+    margin-top: clamp(0.65rem, 1.5svh, 0.95rem);
+  }
+
   .deep__title {
-    font-size: clamp(2.1rem, 9vw, 3.25rem);
-    max-width: 12ch;
+    max-width: 11ch;
+    font-size: clamp(1.85rem, 7.6vw, 3rem);
+    line-height: 0.98;
+  }
+
+  .deep__lead {
+    max-width: min(100%, 40rem);
+    font-size: clamp(0.92rem, 2.7vw, 1rem);
+    line-height: 1.45;
   }
 
   .deep__list {
-    gap: 0.35rem;
+    gap: 0.25rem;
+    margin-top: clamp(0.9rem, 2svh, 1.25rem);
   }
 
   .deep__list li {
-    padding-top: 0.62rem;
-    padding-bottom: 0.62rem;
-    font-size: var(--fs-sm);
+    padding-top: clamp(0.38rem, 1.1svh, 0.55rem);
+    padding-bottom: clamp(0.38rem, 1.1svh, 0.55rem);
+    font-size: clamp(0.82rem, 2.5vw, 0.9rem);
+    line-height: 1.35;
+  }
+
+  .deep__list li::before {
+    top: 1.15rem;
+    width: 12px;
+  }
+
+  .deep__cta {
+    margin-top: clamp(1rem, 2.2svh, 1.35rem);
+    padding: 0.82rem 1.35rem;
   }
 
   .deep__hud {
     position: absolute;
-    bottom: 1rem;
+    bottom: 0.75rem;
     opacity: 1;
     visibility: visible;
   }
@@ -588,21 +657,31 @@ const trackStyle = computed(() => {
 
 @media (max-width: 560px) {
   .deep__panel-inner {
-    padding-top: 5rem;
-    padding-bottom: 10rem;
+    --deep-mobile-top: clamp(4.65rem, 8svh, 5.4rem);
+    --deep-mobile-bottom: clamp(4.25rem, 7svh, 5rem);
   }
 
   .deep__title {
-    font-size: clamp(2rem, 12vw, 3.4rem);
+    max-width: 10.5ch;
+    font-size: clamp(1.72rem, 8.6vw, 2.45rem);
   }
 
   .deep__lead {
-    font-size: var(--fs-base);
+    font-size: clamp(0.85rem, 3.5vw, 0.96rem);
+    line-height: 1.38;
+  }
+
+  .deep__list li {
+    padding-top: 0.32rem;
+    padding-bottom: 0.32rem;
+    font-size: clamp(0.76rem, 3.1vw, 0.84rem);
+    line-height: 1.28;
   }
 
   .deep__cta {
     width: 100%;
     justify-content: center;
+    padding: 0.76rem 1rem;
   }
 
   .deep__hud-bottom {
@@ -612,6 +691,43 @@ const trackStyle = computed(() => {
   .deep__hud-bottom p {
     max-width: 18ch;
     line-height: 1.35;
+  }
+}
+
+@media (max-width: 420px) and (max-height: 720px) {
+  .deep__panel-inner {
+    --deep-mobile-top: 4.25rem;
+    --deep-mobile-bottom: 4rem;
+  }
+
+  .deep__content > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .deep__title {
+    font-size: clamp(1.55rem, 8vw, 2.15rem);
+  }
+
+  .deep__lead {
+    font-size: 0.82rem;
+    line-height: 1.32;
+  }
+
+  .deep__list {
+    gap: 0.1rem;
+    margin-top: 0.65rem;
+  }
+
+  .deep__list li {
+    padding-top: 0.22rem;
+    padding-bottom: 0.22rem;
+    font-size: 0.72rem;
+    line-height: 1.22;
+  }
+
+  .deep__cta {
+    margin-top: 0.7rem;
+    padding: 0.66rem 0.9rem;
   }
 }
 

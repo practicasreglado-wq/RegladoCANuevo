@@ -21,7 +21,7 @@ onMounted(() => {
         io.unobserve(e.target)
       }
     })
-  }, { threshold: 0.2 })
+  }, { threshold: 0, rootMargin: '0px' })
   if (el.value) io.observe(el.value)
 })
 onUnmounted(() => { if (io) io.disconnect() })

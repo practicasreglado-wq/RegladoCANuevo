@@ -26,7 +26,7 @@
         </ul>
       </div>
 
-      <form class="contact__form" novalidate @submit.prevent="onSubmit" v-reveal="{ delay: 1 }">
+      <form class="contact__form" novalidate @submit.prevent="onSubmit">
         <!-- Honeypot: invisible para usuarios, los bots lo rellenan -->
         <div class="hp" aria-hidden="true">
           <label for="hp-website">No rellenar este campo</label>
@@ -92,11 +92,11 @@
           <span class="check__label">{{ $t('contact.form.newsletter') }}</span>
         </label>
 
-        <button type="submit" class="btn btn--primary contact__submit" :disabled="status === 'sending'">
+        <MagneticButton tag="button" type="submit" class="btn btn--primary contact__submit" :disabled="status === 'sending'">
           <span v-if="status !== 'sending'">{{ $t('contact.form.submit') }}</span>
           <span v-else>{{ $t('contact.form.sending') }}</span>
           <span class="btn__arrow" v-if="status !== 'sending'">→</span>
-        </button>
+        </MagneticButton>
 
         <transition name="fade">
           <p v-if="status === 'success'" class="contact__msg contact__msg--ok">{{ $t('contact.form.success') }}</p>
@@ -113,6 +113,7 @@
 import { ref, reactive, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
+import MagneticButton from '@/components/ui/MagneticButton.vue'
 
 const { t, tm } = useI18n()
 const roleOptions = computed(() => tm('contact.form.role_options') || [])
@@ -185,24 +186,43 @@ async function onSubmit() {
 }
 .contact__copy { position: sticky; top: 120px; }
 .contact__copy > * + * { margin-top: 1.2rem; }
-.contact__subtitle { color: var(--color-text-muted); font-size: var(--fs-lg); }
+
+/* Eyebrow dorado */
+.eyebrow { color: var(--color-gold); }
+
+/* Título h2 blanco */
+:deep(.split-word) { color: var(--color-white); }
+
+/* Subtítulo blanco */
+.contact__subtitle { color: var(--color-white); font-size: var(--fs-lg); }
 
 .contact__info {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   display: grid; gap: 1.5rem;
 }
 .contact__info li { display: grid; grid-template-columns: 100px 1fr; gap: 1rem; align-items: baseline; }
+
+/* Labels en dorado */
 .contact__info-label {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--color-gold-text);
+  color: var(--color-gold);
   font-weight: 600;
 }
-.contact__info a { color: var(--color-navy); transition: color var(--t-fast); }
-.contact__info a:hover { color: var(--color-gold-text); }
+
+/* Valores en blanco con hover dorado en todo el item */
+.contact__info a,
+.contact__info li span:not(.contact__info-label) {
+  color: var(--color-white);
+  transition: color var(--t-fast);
+}
+.contact__info li:hover a,
+.contact__info li:hover span:not(.contact__info-label) {
+  color: var(--color-gold);
+}
 
 .contact__form {
   background: var(--color-white);
@@ -210,6 +230,13 @@ async function onSubmit() {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   display: grid; gap: 1.2rem;
+  animation: form-appear 600ms var(--ease-out) 150ms both;
+  position: relative;
+  z-index: 2;
+}
+@keyframes form-appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
 }
 
 .field-row {

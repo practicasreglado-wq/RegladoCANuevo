@@ -62,6 +62,8 @@ const year = new Date().getFullYear()
   color: rgba(255, 255, 255, 0.78);
   padding: clamp(4rem, 8vw, 7rem) 0 2rem;
   border-top: 2px solid var(--color-gold);
+  position: relative;
+  z-index: 2;
 }
 .footer__inner {
   display: grid;
