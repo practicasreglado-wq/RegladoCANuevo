@@ -11,6 +11,19 @@
       </a>
 
       <nav class="nav__menu" :class="{ 'is-open': open }" aria-label="Principal">
+
+        <!-- Reglado Group: solo visible en menú móvil -->
+        <a href="https://regladogroup.com/" target="_blank" rel="noopener" class="nav__group-btn">
+          <span class="nav__group-btn-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          </span>
+          <span class="nav__group-btn-text">
+            <strong>Reglado Group</strong>
+            <span>Volver al grupo</span>
+          </span>
+        </a>
+        <hr class="nav__separator" />
+
         <a href="#top" class="nav__link" @click.prevent="goTo('#top')">{{ $t('nav.home') }}</a>
         <a href="#sobre-nosotros" class="nav__link" @click.prevent="goTo('#sobre-nosotros')">{{ $t('nav.about') }}</a>
         <div class="nav__dropdown" @mouseenter="dropdown = true" @mouseleave="dropdown = false">
@@ -30,6 +43,13 @@
         </div>
         <a href="#subvenciones" class="nav__link" @click.prevent="goTo('#subvenciones')">{{ $t('nav.subvenciones') }}</a>
         <a href="#contrataciones" class="nav__link" @click.prevent="goTo('#contrataciones')">{{ $t('nav.contrataciones') }}</a>
+
+        <hr class="nav__separator" />
+
+        <!-- Botones de acción al final del menú móvil -->
+        <button class="nav__menu-btn nav__menu-btn--primary" @click="goTo('#contacto')">Contacto</button>
+        <button class="nav__menu-btn nav__menu-btn--secondary">Iniciar sesión / Registrarse</button>
+
       </nav>
 
       <div class="nav__right">
@@ -247,6 +267,11 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .lang button:hover { opacity: 0.85; transform: scale(1.15); }
 .nav__cta { padding: 0.7rem 1.2rem; font-size: 0.85rem; }
 
+/* Ocultar en desktop los elementos exclusivos del menú móvil */
+.nav__group-btn,
+.nav__separator,
+.nav__menu-btn { display: none; }
+
 .nav__burger {
   display: none;
   width: 36px; height: 36px;
@@ -286,8 +311,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-    padding: 2rem 1.5rem;
-    border-bottom: 1px solid var(--color-border);
+    padding: 1.5rem;
+    border: 2px solid var(--color-navy);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     transform: translateY(-12px);
     opacity: 0;
     pointer-events: none;
@@ -297,5 +323,77 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   .nav__dropdown-menu { position: static; box-shadow: none; border: 0; padding: 0.4rem 0 0; min-width: 0; }
   .nav__cta { display: none; }
   .nav__burger { display: flex; }
+  .nav__group-link { display: none; }
+
+  /* Botón Reglado Group */
+  .nav__group-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: var(--color-navy-deep);
+    border: 1px solid var(--color-gold);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+  }
+  .nav__group-btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    background: rgba(201, 168, 76, 0.15);
+    border-radius: 8px;
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+  .nav__group-btn-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .nav__group-btn-text strong {
+    color: var(--color-white);
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+  .nav__group-btn-text span {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.76rem;
+  }
+
+  /* Separadores */
+  .nav__separator {
+    display: block;
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--color-navy);
+    margin: 0;
+  }
+
+  /* Botones de acción inferiores */
+  .nav__menu-btn {
+    display: block;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-lg);
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: center;
+    transition: opacity var(--t-fast);
+  }
+  .nav__menu-btn:hover { opacity: 0.85; }
+  .nav__menu-btn--primary {
+    background: var(--color-gold);
+    color: var(--color-navy);
+    border: none;
+  }
+  .nav__menu-btn--secondary {
+    background: transparent;
+    color: var(--color-navy);
+    border: 1.5px solid var(--color-navy);
+  }
 }
 </style>

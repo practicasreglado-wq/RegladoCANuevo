@@ -119,6 +119,7 @@ const services = [
 @media (max-width: 900px) {
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .services__card-wrap { grid-column: span 1 !important; height: auto; }
+  .section { padding-bottom: clamp(12rem, 26vw, 22rem); }
 }
 @media (max-width: 560px) {
   .services__grid { grid-template-columns: 1fr; }

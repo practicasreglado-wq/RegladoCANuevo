@@ -179,13 +179,19 @@ const tagCards = computed(() => tags.value.map((label, index) => ({
 }
 @media (max-width: 880px) {
   .about__inner {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'copy'
-      'tags'
-      'visual';
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
   }
-  .about__visual { max-width: 480px; min-height: auto; aspect-ratio: 4 / 5; }
+  /* display:contents elimina el box de about__copy,
+     sus hijos pasan a ser flex items directos y se pueden reordenar */
+  .about__copy { display: contents; }
+  .about__copy > .eyebrow            { order: 1; }
+  .about__tags                       { order: 2; }
+  .about__copy :deep(.split-heading) { order: 3; }
+  .about__copy > .about__text        { order: 4; }
+  .about__visual                     { order: 5; max-width: 480px; aspect-ratio: 4 / 5; }
+
   .about__tags { grid-template-columns: repeat(2, 1fr); }
   .about__tag-card:last-child { grid-column: 1 / -1; }
 }
