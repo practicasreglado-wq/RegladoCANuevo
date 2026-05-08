@@ -31,6 +31,10 @@ function onOut(e) {
 }
 function onLeave() { active.value = false }
 
+function onCustomMove(e) {
+  onMove(e.detail)
+}
+
 onMounted(() => {
   isTouch = matchMedia('(pointer: coarse)').matches
   if (isTouch) return
@@ -38,12 +42,14 @@ onMounted(() => {
   window.addEventListener('mouseover', onOver, true)
   window.addEventListener('mouseout', onOut, true)
   document.addEventListener('mouseleave', onLeave)
+  window.addEventListener('cursor-move', onCustomMove)
 })
 onUnmounted(() => {
   window.removeEventListener('mousemove', onMove)
   window.removeEventListener('mouseover', onOver, true)
   window.removeEventListener('mouseout', onOut, true)
   document.removeEventListener('mouseleave', onLeave)
+  window.removeEventListener('cursor-move', onCustomMove)
   if (raf) cancelAnimationFrame(raf)
 })
 </script>

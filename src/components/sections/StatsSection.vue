@@ -5,16 +5,30 @@
         <p class="eyebrow" v-reveal>{{ $t('stats.eyebrow') }}</p>
         <SplitHeading :text="$t('stats.title')" tag="h2" />
       </header>
-      <div class="stats__grid" v-reveal="{ delay: 1 }">
-        <div v-for="(item, i) in items" :key="i" class="stats__item">
-          <Counter :value="item.value" :suffix="item.suffix" />
-          <p class="stats__label">{{ item.label }}</p>
+      
+      <!-- Marco decorativo para el mapa -->
+      <div class="stats__map-wrapper" v-reveal>
+        <div class="map-frame">
+          <MapaReglado 
+            ref="mapa"
+            aspect-ratio="16/9"
+            aspect-ratio-mobile="4/5"
+            border-radius="8px"
+            hint-text="Mapa de cobertura nacional · Reglado Consultores"
+          />
         </div>
       </div>
 
       <div class="stats__marquee">
         <Marquee :speed="40">
-          <span v-for="m in municipios" :key="m" class="stats__chip">{{ m }}</span>
+          <button 
+            v-for="m in municipios" 
+            :key="m.name" 
+            class="stats__chip"
+            @click="goToCity(m)"
+          >
+            {{ m.name }}
+          </button>
         </Marquee>
       </div>
     </div>
@@ -22,20 +36,49 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
-import Counter from '@/components/ui/Counter.vue'
 import Marquee from '@/components/ui/Marquee.vue'
+import MapaReglado from '@/components/common/MapaReglado.vue'
 
-const { tm } = useI18n()
-const items = computed(() => tm('stats.items') || [])
+const { tm } = useI18n({ useScope: 'global' })
+
+const mapa = ref(null)
 
 const municipios = [
-  'Madrid', 'Sevilla', 'Valencia', 'Zaragoza', 'Bilbao', 'Murcia',
-  'Palma', 'Córdoba', 'Vigo', 'Gijón', 'Granada', 'Pamplona',
-  'Toledo', 'Cáceres', 'Cuenca', 'Soria', 'Teruel', 'Ávila'
+  { name: 'Madrid', cpro: '28', muniId: '28079' },
+  { name: 'Sevilla', cpro: '41', muniId: '41091' },
+  { name: 'Valencia', cpro: '46', muniId: '46250' },
+  { name: 'Zaragoza', cpro: '50', muniId: '50297' },
+  { name: 'Bilbao', cpro: '48', muniId: '48020' },
+  { name: 'Murcia', cpro: '30', muniId: '30030' },
+  { name: 'Palma', cpro: '07', muniId: '07040' },
+  { name: 'Córdoba', cpro: '14', muniId: '14021' },
+  { name: 'Vigo', cpro: '36', muniId: '36057' },
+  { name: 'Gijón', cpro: '33', muniId: '33024' },
+  { name: 'Granada', cpro: '18', muniId: '18087' },
+  { name: 'Pamplona', cpro: '31', muniId: '31201' },
+  { name: 'Toledo', cpro: '45', muniId: '45168' },
+  { name: 'Cáceres', cpro: '10', muniId: '10037' },
+  { name: 'Cuenca', cpro: '16', muniId: '16078' },
+  { name: 'Soria', cpro: '42', muniId: '42173' },
+  { name: 'Teruel', cpro: '44', muniId: '44216' },
+  { name: 'Ávila', cpro: '05', muniId: '05019' }
 ]
+
+function goToCity(city) {
+  mapa.value?.flyTo(city.cpro, city.muniId)
+  
+  // Opcional: scroll suave hacia el mapa si estamos en móvil y queda lejos
+  const mapEl = document.querySelector('.stats__map-wrapper')
+  if (mapEl) {
+    const rect = mapEl.getBoundingClientRect()
+    if (rect.top < 0 || rect.bottom > window.innerHeight) {
+      mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -61,58 +104,66 @@ const municipios = [
 .stats__header { max-width: 720px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .stats__header > * + * { margin-top: 1rem; }
 
-.stats__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-  margin-bottom: clamp(3.5rem, 6vw, 5rem);
+/* Nuevo marco para el mapa */
+.stats__map-wrapper {
+  margin-bottom: 2rem; /* Reducido para que esté más pegado */
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: calc(var(--radius-lg) + 1rem);
+  position: relative;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
 }
-.stats__item {
-  min-height: 190px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(1.25rem, 2vw, 1.75rem);
-  border: 1px solid rgba(201, 168, 76, 0.22);
-  border-top-color: rgba(201, 168, 76, 0.5);
+
+.stats__map-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0.5rem;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: calc(var(--radius-lg) + 0.5rem);
+  pointer-events: none;
+}
+
+.map-frame {
+  position: relative;
+  z-index: 2;
   border-radius: var(--radius-lg);
-  background: var(--color-white);
-  box-shadow: 0 18px 44px rgba(5, 12, 24, 0.14);
-  transition: transform var(--t-base) var(--ease-out),
-              border-color var(--t-base) var(--ease-out),
-              background var(--t-base) var(--ease-out);
-}
-.stats__item:hover {
-  transform: translateY(-6px);
-  border-color: rgba(201, 168, 76, 0.55);
-  background: rgba(140, 167, 184, 0.699);;
-}
-.stats__label {
-  color: var(--color-text);
-  font-size: var(--fs-sm);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: 0.6rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stats__marquee {
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 3rem;
+  border-top: 1px solid rgba(201, 168, 76, 0.1);
+  padding-top: 2rem;
+  opacity: 0.8;
 }
-.stats__chip {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
-  color: rgba(255,255,255,0.6);
-  white-space: nowrap;
-  transition: color var(--t-base);
-}
-.stats__chip:hover { color: var(--color-gold); }
 
-@media (max-width: 980px) {
-  .stats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.stats__chip {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  padding: 0 3rem;
+  transition: all var(--t-base) var(--ease-out);
+  position: relative;
 }
-@media (max-width: 560px) {
-  .stats__grid { grid-template-columns: 1fr; }
-  .stats__item { min-height: 160px; }
+
+.stats__chip:hover { 
+  color: var(--color-gold);
+  transform: scale(1.05);
+}
+
+.stats__chip::after {
+  content: '·';
+  position: absolute;
+  right: -0.5rem;
+  color: rgba(201, 168, 76, 0.3);
 }
 </style>

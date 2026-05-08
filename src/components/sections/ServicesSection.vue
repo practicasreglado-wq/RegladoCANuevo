@@ -9,10 +9,10 @@
 
       <div class="services__grid">
         <TiltCard v-for="(s, i) in services" :key="s.hash" class="services__card-wrap" :max="14">
-          <a :href="s.hash" class="services__card" @click.prevent="goTo(s.hash)" v-reveal="{ delay: (i % 4) + 1 }">
+          <a :href="s.hash" class="services__card reveal--card" @click.prevent="goTo(s.hash)" v-reveal="{ delay: (i % 5) + 1 }">
             <div class="services__icon" :style="{ '-webkit-mask-image': `url(${s.icon})`, 'mask-image': `url(${s.icon})` }" aria-hidden="true"></div>
             <h3 class="services__card-title">{{ $t(s.titleKey) }}</h3>
-            <p class="services__card-text">{{ s.text }}</p>
+            <p class="services__card-text">{{ $t(s.textKey) }}</p>
             <span class="services__card-cta">{{ $t('services_section.cta') }} <span class="btn__arrow">→</span></span>
           </a>
         </TiltCard>
@@ -32,11 +32,11 @@ function goTo(hash) {
 }
 
 const services = [
-  { hash: '#inspecciones', titleKey: 'services.inspecciones', text: 'Auditoría tributaria, regularización de padrones y defensa en vía administrativa.', icon: '/iconos/seguridad.png' },
-  { hash: '#juridica', titleKey: 'services.juridica', text: 'Asesoramiento jurídico integral, informes, dictámenes y representación letrada.', icon: '/iconos/ley.png' },
-  { hash: '#tecnica', titleKey: 'services.tecnica', text: 'Urbanismo, planeamiento, licencias y proyectos de obra municipal.', icon: '/iconos/plano.png' },
-  { hash: '#economica', titleKey: 'services.economica', text: 'Presupuestos, control financiero, estabilidad y plan de saneamiento.', icon: '/iconos/auditoria.png' },
-  { hash: '#energetica', titleKey: 'services.energetica', text: 'Auditorías energéticas, transición y eficiencia en edificios públicos.', icon: '/iconos/factura-de-electricidad.png' }
+  { hash: '#inspecciones', titleKey: 'services.inspecciones', textKey: 'services.inspecciones_short', icon: '/iconos/seguridad.png' },
+  { hash: '#juridica', titleKey: 'services.juridica', textKey: 'services.juridica_short', icon: '/iconos/ley.png' },
+  { hash: '#tecnica', titleKey: 'services.tecnica', textKey: 'services.tecnica_short', icon: '/iconos/plano.png' },
+  { hash: '#economica', titleKey: 'services.economica', textKey: 'services.economica_short', icon: '/iconos/auditoria.png' },
+  { hash: '#energetica', titleKey: 'services.energetica', textKey: 'services.energetica_short', icon: '/iconos/factura-de-electricidad.png' }
 ]
 </script>
 

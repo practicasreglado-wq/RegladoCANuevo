@@ -32,10 +32,10 @@
             <div class="deep__content">
               <p class="eyebrow deep__eyebrow">{{ pad(i + 1) }} / {{ totalLabel }}</p>
               <h2 class="deep__title">{{ $t(s.titleKey) }}</h2>
-              <p class="deep__lead">{{ s.lead }}</p>
+              <p class="deep__lead">{{ $t(s.leadKey) }}</p>
 
               <ul class="deep__list">
-                <li v-for="item in s.items" :key="item">{{ item }}</li>
+                <li v-for="item in $tm(s.itemsKey)" :key="item">{{ item }}</li>
               </ul>
 
               <MagneticButton tag="a" href="#contacto" class="btn btn--primary deep__cta" @click.prevent="goTo('#contacto')">
@@ -167,72 +167,41 @@ onUnmounted(() => {
   wideViewportQuery?.removeEventListener?.('change', updateMode)
   reducedMotionQuery?.removeEventListener?.('change', updateMode)
 })
-
 const blocks = [
   {
     id: 'inspecciones',
     titleKey: 'services.inspecciones',
-    image: imgInspecciones,
-    lead: 'Auditoría tributaria, regularización de padrones y defensa en vía administrativa y judicial. Detectamos bolsas de fraude e incrementamos la recaudación municipal.',
-    items: [
-      'IBI · Inspección catastral, regularizaciones y procedimientos especiales.',
-      'IAE · Detección de altas no declaradas y revisión de epígrafes.',
-      'IIVTNU · Liquidación, devolución y litigios tras la STC 182/2021.',
-      'ICIO · Comprobaciones de obras, autoliquidaciones y reintegros.',
-      'Tasas y precios públicos · Análisis de coste y propuesta de actualización.'
-    ]
+    leadKey: 'services.inspecciones_lead',
+    itemsKey: 'services.inspecciones_items',
+    image: imgInspecciones
   },
   {
     id: 'juridica',
     titleKey: 'services.juridica',
-    image: imgJuridica,
-    lead: 'Asesoramiento jurídico integral, informes, dictámenes y representación letrada en todas las jurisdicciones. Asistencia continuada o por proyecto.',
-    items: [
-      'Derecho administrativo y procedimiento.',
-      'Urbanismo y ordenación del territorio.',
-      'Contratación pública: pliegos, mesas y recursos.',
-      'Función pública y régimen disciplinario.',
-      'Responsabilidad patrimonial y contencioso-administrativo.'
-    ]
+    leadKey: 'services.juridica_lead',
+    itemsKey: 'services.juridica_items',
+    image: imgJuridica
   },
   {
     id: 'tecnica',
     titleKey: 'services.tecnica',
-    image: imgTecnica,
-    lead: 'Urbanismo, planeamiento, licencias y proyectos de obra municipal con visión integradora. Equipo de arquitectos, ingenieros y técnicos urbanistas.',
-    items: [
-      'Redacción y revisión de planeamiento urbanístico.',
-      'Licencias de obra, actividad y declaraciones responsables.',
-      'Proyectos de urbanización y obra civil municipal.',
-      'Inspección urbanística y disciplina.',
-      'Valoraciones y peritajes.'
-    ]
+    leadKey: 'services.tecnica_lead',
+    itemsKey: 'services.tecnica_items',
+    image: imgTecnica
   },
   {
     id: 'economica',
     titleKey: 'services.economica',
-    image: imgEconomica,
-    lead: 'Presupuestos, control financiero, estabilidad presupuestaria y planes de saneamiento. Trabajamos codo a codo con la intervención municipal.',
-    items: [
-      'Elaboración del presupuesto y modificaciones presupuestarias.',
-      'Liquidación, cuenta general y rendición a la Cámara de Cuentas.',
-      'Estabilidad presupuestaria y regla de gasto.',
-      'Planes económico-financieros y de ajuste.',
-      'Control interno y auditoría pública.'
-    ]
+    leadKey: 'services.economica_lead',
+    itemsKey: 'services.economica_items',
+    image: imgEconomica
   },
   {
     id: 'energetica',
     titleKey: 'services.energetica',
-    image: imgEnergetica,
-    lead: 'Auditorías energéticas, transición y eficiencia en edificios públicos. Ahorros del 30-45% en factura energética y financiación europea capturada.',
-    items: [
-      'Auditorías energéticas en edificios e instalaciones públicas.',
-      'Planes de transición energética municipal.',
-      'Comunidades energéticas locales.',
-      'Renovación de alumbrado público y eficiencia.',
-      'Tramitación de subvenciones IDAE y fondos europeos.'
-    ]
+    leadKey: 'services.energetica_lead',
+    itemsKey: 'services.energetica_items',
+    image: imgEnergetica
   }
 ]
 

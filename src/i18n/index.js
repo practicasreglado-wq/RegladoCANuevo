@@ -15,6 +15,7 @@ const initial = detectLocale()
 
 const i18n = createI18n({
   legacy: false,
+  globalInjection: true,
   locale: initial,
   fallbackLocale: 'es',
   messages: { es, en }

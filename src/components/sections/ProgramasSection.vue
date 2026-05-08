@@ -3,13 +3,13 @@
     <div class="programas__particles" ref="particlesEl" aria-hidden="true"></div>
     <div class="container">
       <header class="programas__header">
-        <p class="eyebrow" v-reveal>Financiación europea</p>
-        <SplitHeading text="Subvenciones y fondos europeos" tag="h2" />
-        <p class="programas__lead" v-reveal="{ delay: 1 }">Captación, gestión y justificación de fondos Next Generation, FEDER, FSE+, MITECO, IDAE y convocatorias autonómicas. Trabajamos con tu municipio en todo el ciclo de la subvención.</p>
+        <p class="eyebrow" v-reveal>{{ $t('programas.eyebrow') }}</p>
+        <SplitHeading :text="$t('programas.title')" tag="h2" />
+        <p class="programas__lead" v-reveal="{ delay: 1 }">{{ $t('programas.lead') }}</p>
       </header>
 
       <div class="programas__grid">
-        <div v-for="(p, i) in programas" :key="p.title" class="programas__card" v-reveal="{ delay: (i % 3) + 1 }">
+        <div v-for="(p, i) in $tm('programas.items')" :key="i" class="programas__card reveal--card" v-reveal="{ delay: (i % 3) + 1 }">
           <span class="programas__num">0{{ i + 1 }}</span>
           <h3>{{ p.title }}</h3>
           <p>{{ p.text }}</p>
@@ -21,16 +21,16 @@
   <section id="contrataciones" class="section contrataciones">
     <div class="container contrataciones__inner">
       <div class="contrataciones__copy">
-        <p class="eyebrow" v-reveal>Contratación pública</p>
-        <SplitHeading text="Asistencia integral en contratación" tag="h2" />
-        <p class="contrataciones__lead" v-reveal="{ delay: 1 }">Acompañamiento en todo el ciclo del contrato público: pliegos, mesas, ejecución y recursos. Procedimientos sólidos, ágiles y blindados frente a impugnaciones.</p>
+        <p class="eyebrow" v-reveal>{{ $t('contratacion.eyebrow') }}</p>
+        <SplitHeading :text="$t('contratacion.title')" tag="h2" />
+        <p class="contrataciones__lead" v-reveal="{ delay: 1 }">{{ $t('contratacion.lead') }}</p>
         <ul class="contrataciones__list">
-          <li v-for="(s, i) in contratacionesItems" :key="i" v-reveal="{ delay: (i % 4) + 1 }">{{ s }}</li>
+          <li v-for="(s, i) in $tm('contratacion.items')" :key="i" v-reveal="{ delay: (i % 4) + 1 }">{{ s }}</li>
         </ul>
       </div>
       <div class="contrataciones__cite" v-reveal="{ delay: 2 }">
         <span class="contrataciones__quote">“</span>
-        <p>LCSP 9/2017, Directivas comunitarias y doctrina TACRC. Procedimientos blindados frente a recursos y modificaciones contractuales.</p>
+        <p>{{ $t('contratacion.cite') }}</p>
       </div>
     </div>
   </section>
@@ -59,23 +59,6 @@ onMounted(() => {
     particlesEl.value?.appendChild(p)
   }
 })
-
-const programas = [
-  { title: 'Next Generation EU', text: 'Plan de Recuperación, Transformación y Resiliencia. PERTE, MRR, transferencias a entidades locales.' },
-  { title: 'FEDER 2021-2027', text: 'Programas operativos plurianuales para infraestructuras, digitalización y cohesión territorial.' },
-  { title: 'EDUSI', text: 'Estrategia de Desarrollo Urbano Sostenible. Capturamos y ejecutamos los fondos asociados.' },
-  { title: 'IDAE / MITECO', text: 'Convocatorias de eficiencia energética, autoconsumo y movilidad sostenible.' },
-  { title: 'DUS 5000', text: 'Ayudas para municipios de menos de 5.000 habitantes en transición energética.' },
-  { title: 'Convocatorias autonómicas', text: 'Cobertura en las 17 CC. AA. con seguimiento mensual de oportunidades.' }
-]
-
-const contratacionesItems = [
-  'Redacción de pliegos administrativos y técnicos.',
-  'Asistencia letrada en mesas de contratación.',
-  'Defensa ante recursos especiales (TACRC, OARC).',
-  'Modificaciones, prórrogas y resoluciones contractuales.',
-  'Auditoría de procedimientos en curso.'
-]
 </script>
 
 <style scoped>
