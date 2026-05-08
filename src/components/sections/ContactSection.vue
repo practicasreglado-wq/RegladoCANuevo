@@ -2,11 +2,11 @@
   <section id="contacto" class="contact">
     <div class="container contact__inner">
       <div class="contact__copy">
-        <p class="eyebrow" v-reveal>{{ $t('contact.eyebrow') }}</p>
+        <p class="eyebrow">{{ $t('contact.eyebrow') }}</p>
         <SplitHeading :text="$t('contact.title')" tag="h2" />
-        <p class="contact__subtitle" v-reveal="{ delay: 1 }">{{ $t('contact.subtitle') }}</p>
+        <p class="contact__subtitle">{{ $t('contact.subtitle') }}</p>
 
-        <ul class="contact__info" v-reveal="{ delay: 2 }">
+        <ul class="contact__info">
           <li>
             <span class="contact__info-label">Email</span>
             <a :href="`mailto:${$t('contact.info.email')}`">{{ $t('contact.info.email') }}</a>
@@ -184,8 +184,16 @@ async function onSubmit() {
   gap: clamp(2rem, 6vw, 5rem);
   align-items: start;
 }
-.contact__copy { position: sticky; top: 120px; }
+.contact__copy {
+  position: sticky;
+  top: 120px;
+  animation: copy-appear 600ms var(--ease-out) 100ms both;
+}
 .contact__copy > * + * { margin-top: 1.2rem; }
+@keyframes copy-appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
 
 /* Eyebrow dorado */
 .eyebrow { color: var(--color-gold); }
