@@ -41,10 +41,7 @@ const services = [
 </script>
 
 <style scoped>
-.section {
-  padding-top: clamp(5rem, 12vw, 10rem);
-  padding-bottom: clamp(10rem, 20vw, 18rem); /* Aumentado para ver el fondo */
-}
+/* Estilos locales de ServicesSection */
 
 /* ── Cabecera de sección ── */
 .services__header { max-width: 720px; margin-bottom: 4rem; }
