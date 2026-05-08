@@ -34,6 +34,7 @@
     #canvas-wrap {
       position: fixed;
       inset: 0;
+      z-index: 9999 !important;
       cursor: default !important;
       pointer-events: none !important;
     }
@@ -357,9 +358,8 @@
         metalness: 0.05,
         side: THREE.FrontSide,
       };
-      const matFace = new THREE.MeshStandardMaterial({ ...matBase, color: 0x101014 });
-      const matSide = new THREE.MeshStandardMaterial({ ...matBase, color: 0x5C5C66 });
-      const solid = new THREE.Mesh(geo, [matFace, matSide]);
+      const matFace = new THREE.MeshStandardMaterial({ ...matBase, color: 0x444444 });
+      const matSide = new THREE.MeshStandardMaterial({ ...matBase, color: 0x222222 }); const solid = new THREE.Mesh(geo, [matFace, matSide]);
       spinGroup.add(solid);
 
       // (Eje retirado en modo embed — sólo se muestra el sólido extruido.)
@@ -368,9 +368,9 @@
       const sc = document.createElement('canvas'); sc.width = sc.height = 256;
       const sctx = sc.getContext('2d');
       const grad = sctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-      grad.addColorStop(0, 'rgba(26,45,78,0.32)');
-      grad.addColorStop(0.55, 'rgba(26,45,78,0.08)');
-      grad.addColorStop(1, 'rgba(26,45,78,0)');
+      grad.addColorStop(0, 'rgba(0,0,0,0.3)');
+      grad.addColorStop(0.55, 'rgba(0,0,0,0.08)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
       sctx.fillStyle = grad; sctx.fillRect(0, 0, 256, 256);
       const shadowMat = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sc), transparent: true, depthWrite: false });
       const shadow = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 1.6), shadowMat);
