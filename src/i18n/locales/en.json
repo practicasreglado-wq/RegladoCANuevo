@@ -12,10 +12,86 @@
   },
   "services": {
     "inspecciones": "Tax inspections",
+    "inspecciones_lead": "Tax auditing, record regularization and defense in administrative and judicial channels. We detect fraud pockets and increase municipal revenue.",
+    "inspecciones_items": [
+      "IBI · Cadastral inspection, regularizations and special procedures.",
+      "IAE · Detection of undeclared registrations and review of headings.",
+      "IIVTNU · Liquidation, refund and litigation after STC 182/2021.",
+      "ICIO · Checking of works, self-assessments and reimbursements.",
+      "Fees and public prices · Cost analysis and update proposal."
+    ],
     "juridica": "Legal consulting",
+    "juridica_lead": "Comprehensive legal advice, reports, opinions and legal representation in all jurisdictions. Continuous or project-based assistance.",
+    "juridica_items": [
+      "Administrative law and procedure.",
+      "Urban planning and land management.",
+      "Public procurement: specifications, boards and appeals.",
+      "Public service and disciplinary regime.",
+      "Asset liability and contentious-administrative."
+    ],
     "tecnica": "Technical consulting",
+    "tecnica_lead": "Urbanism, planning, licenses and municipal work projects with an integrating vision. Team of architects, engineers and urban technicians.",
+    "tecnica_items": [
+      "Drafting and review of urban planning.",
+      "Building permits, activity licenses and responsible declarations.",
+      "Municipal urbanization and civil work projects.",
+      "Urban inspection and discipline.",
+      "Valuations and appraisals."
+    ],
     "economica": "Financial consulting",
-    "energetica": "Energy consulting"
+    "economica_lead": "Budgets, financial control, budgetary stability and sanitation plans. We work side by side with the municipal intervention.",
+    "economica_items": [
+      "Preparation of the budget and budget modifications.",
+      "Liquidation, general account and reporting to the Court of Auditors.",
+      "Budgetary stability and spending rule.",
+      "Economic-financial and adjustment plans.",
+      "Internal control and public audit."
+    ],
+    "energetica": "Energy consulting",
+    "energetica_lead": "Energy audits, transition and efficiency in public buildings. Savings of 30-45% in energy bills and captured European funding.",
+    "energetica_items": [
+      "Energy audits in public buildings and facilities.",
+      "Municipal energy transition plans.",
+      "Local energy communities.",
+      "Renewal of public lighting and efficiency.",
+      "Processing of IDAE grants and European funds."
+    ],
+    "inspecciones_short": "Tax auditing, record regularization and defense in administrative channels.",
+    "juridica_short": "Comprehensive legal advice, reports, opinions and legal representation.",
+    "tecnica_short": "Urbanism, planning, licenses and municipal work projects.",
+    "economica_short": "Budgets, financial control, stability and sanitation plans.",
+    "energetica_short": "Energy audits, transition and efficiency in public buildings."
+  },
+  "programas": {
+    "eyebrow": "European Funding",
+    "title": "Grants and European funds",
+    "lead": "Attraction, management and justification of Next Generation, ERDF, ESF+, MITECO, IDAE funds and regional calls. We work with your municipality throughout the entire grant cycle.",
+    "items": [
+      { "title": "Next Generation EU", "text": "Recovery, Transformation and Resilience Plan. PERTE, MRR, transfers to local entities." },
+      { "title": "FEDER 2021-2027", "text": "Multiannual operational programs for infrastructure, digitalization and territorial cohesion." },
+      { "title": "EDUSI", "text": "Sustainable Urban Development Strategy. We capture and execute associated funds." },
+      { "title": "IDAE / MITECO", "text": "Calls for energy efficiency, self-consumption and sustainable mobility." },
+      { "title": "DUS 5000", "text": "Aid for municipalities with fewer than 5,000 inhabitants in energy transition." },
+      { "title": "Regional calls", "text": "Coverage in the 17 Autonomous Communities with monthly monitoring of opportunities." }
+    ]
+  },
+  "contratacion": {
+    "eyebrow": "Public Procurement",
+    "title": "Comprehensive procurement assistance",
+    "lead": "Support throughout the public contract cycle: specifications, boards, execution and appeals. Solid, agile procedures shielded against challenges.",
+    "items": [
+      "Drafting of administrative and technical specifications.",
+      "Legal assistance in procurement boards.",
+      "Defense against special appeals (TACRC, OARC).",
+      "Modifications, extensions and contractual resolutions.",
+      "Audit of ongoing procedures."
+    ],
+    "cite": "LCSP 9/2017, Community Directives and TACRC doctrine. Procedures shielded against appeals and contractual modifications."
+  },
+  "video_showcase": {
+    "eyebrow": "Featured Case Study",
+    "title": "Tax inspection with measurable results",
+    "lead": "Complete audit of IBI, IAE and ICIO with an average increase in revenue of 12-18% without new fees for residents."
   },
   "hero": {
     "eyebrow": "Public sector advisory",
@@ -81,18 +157,19 @@
       "service": "Service of interest",
       "service_options": ["Tax inspections", "Legal consulting", "Technical consulting", "Financial consulting", "Energy consulting", "EU grants", "Procurement", "Other"],
       "message": "Briefly describe your case",
-      "rgpd": "I have read and accept the <a href=\"/privacidad\">privacy policy</a> and the processing of my data to respond to this enquiry.",
+      "rgpd": "I have read and accept the {privacy} and the processing of my data to respond to this enquiry.",
+      "privacy_link": "privacy policy",
       "newsletter": "I'd like to receive updates and regulatory alerts (optional).",
       "submit": "Send enquiry",
       "sending": "Sending…",
       "success": "Message sent. We'll be in touch within 24 hours.",
-      "error": "We couldn't send your message. Please try again or write to info@regladoconsultores.com.",
+      "error": "We couldn't send your message. Please try again or write to info{'@'}regladoconsultores.com.",
       "required": "This field is required",
       "invalid_email": "Enter a valid email"
     },
     "info": {
       "phone": "+34 900 000 000",
-      "email": "info@regladoconsultores.com",
+      "email": "info{'@'}regladoconsultores.com",
       "address": "Madrid · Nationwide coverage",
       "hours": "Mon–Fri · 9:00–18:00"
     }

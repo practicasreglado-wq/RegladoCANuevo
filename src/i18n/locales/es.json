@@ -12,10 +12,86 @@
   },
   "services": {
     "inspecciones": "Inspecciones tributarias",
+    "inspecciones_lead": "Auditoría tributaria, regularización de padrones y defensa en vía administrativa y judicial. Detectamos bolsas de fraude e incrementamos la recaudación municipal.",
+    "inspecciones_items": [
+      "IBI · Inspección catastral, regularizaciones y procedimientos especiales.",
+      "IAE · Detección de altas no declaradas y revisión de epígrafes.",
+      "IIVTNU · Liquidación, devolución y litigios tras la STC 182/2021.",
+      "ICIO · Comprobaciones de obras, autoliquidaciones y reintegros.",
+      "Tasas y precios públicos · Análisis de coste y propuesta de actualización."
+    ],
     "juridica": "Consultoría jurídica",
+    "juridica_lead": "Asesoramiento jurídico integral, informes, dictámenes y representación letrada en todas las jurisdicciones. Asistencia continuada o por proyecto.",
+    "juridica_items": [
+      "Derecho administrativo y procedimiento.",
+      "Urbanismo y ordenación del territorio.",
+      "Contratación pública: pliegos, mesas y recursos.",
+      "Función pública y régimen disciplinario.",
+      "Responsabilidad patrimonial y contencioso-administrativo."
+    ],
     "tecnica": "Consultoría técnica",
+    "tecnica_lead": "Urbanismo, planeamiento, licencias y proyectos de obra municipal con visión integradora. Equipo de arquitectos, ingenieros y técnicos urbanistas.",
+    "tecnica_items": [
+      "Redacción y revisión de planeamiento urbanístico.",
+      "Licencias de obra, actividad y declaraciones responsables.",
+      "Proyectos de urbanización y obra civil municipal.",
+      "Inspección urbanística y disciplina.",
+      "Valoraciones y peritajes."
+    ],
     "economica": "Consultoría económica",
-    "energetica": "Consultoría energética"
+    "economica_lead": "Presupuestos, control financiero, estabilidad presupuestaria y planes de saneamiento. Trabajamos codo a codo con la intervención municipal.",
+    "economica_items": [
+      "Elaboración del presupuesto y modificaciones presupuestarias.",
+      "Liquidación, cuenta general y rendición a la Cámara de Cuentas.",
+      "Estabilidad presupuestaria y regla de gasto.",
+      "Planes económico-financieros y de ajuste.",
+      "Control interno y auditoría pública."
+    ],
+    "energetica": "Consultoría energética",
+    "energetica_lead": "Auditorías energéticas, transición y eficiencia en edificios públicos. Ahorros del 30-45% en factura energética y financiación europea capturada.",
+    "energetica_items": [
+      "Auditorías energéticas en edificios e instalaciones públicas.",
+      "Planes de transición energética municipal.",
+      "Comunidades energéticas locales.",
+      "Renovación de alumbrado público y eficiencia.",
+      "Tramitación de subvenciones IDAE y fondos europeos."
+    ],
+    "inspecciones_short": "Auditoría tributaria, regularización de padrones y defensa en vía administrativa.",
+    "juridica_short": "Asesoramiento jurídico integral, informes, dictámenes y representación letrada.",
+    "tecnica_short": "Urbanismo, planeamiento, licencias y proyectos de obra municipal.",
+    "economica_short": "Presupuestos, control financiero, estabilidad y plan de saneamiento.",
+    "energetica_short": "Auditorías energéticas, transición y eficiencia en edificios públicos."
+  },
+  "programas": {
+    "eyebrow": "Financiación europea",
+    "title": "Subvenciones y fondos europeos",
+    "lead": "Captación, gestión y justificación de fondos Next Generation, FEDER, FSE+, MITECO, IDAE y convocatorias autonómicas. Trabajamos con tu municipio en todo el ciclo de la subvención.",
+    "items": [
+      { "title": "Next Generation EU", "text": "Plan de Recuperación, Transformación y Resiliencia. PERTE, MRR, transferencias a entidades locales." },
+      { "title": "FEDER 2021-2027", "text": "Programas operativos plurianuales para infraestructuras, digitalización y cohesión territorial." },
+      { "title": "EDUSI", "text": "Estrategia de Desarrollo Urbano Sostenible. Capturamos y ejecutamos los fondos asociados." },
+      { "title": "IDAE / MITECO", "text": "Convocatorias de eficiencia energética, autoconsumo y movilidad sostenible." },
+      { "title": "DUS 5000", "text": "Ayudas para municipios de menos de 5.000 habitantes en transición energética." },
+      { "title": "Convocatorias autonómicas", "text": "Cobertura en las 17 CC. AA. con seguimiento mensual de oportunidades." }
+    ]
+  },
+  "contratacion": {
+    "eyebrow": "Contratación pública",
+    "title": "Asistencia integral en contratación",
+    "lead": "Acompañamiento en todo el ciclo del contrato público: pliegos, mesas, ejecución y recursos. Procedimientos sólidos, ágiles y blindados frente a impugnaciones.",
+    "items": [
+      "Redacción de pliegos administrativos y técnicos.",
+      "Asistencia letrada en mesas de contratación.",
+      "Defensa ante recursos especiales (TACRC, OARC).",
+      "Modificaciones, prórrogas y resoluciones contractuales.",
+      "Auditoría de procedimientos en curso."
+    ],
+    "cite": "LCSP 9/2017, Directivas comunitarias y doctrina TACRC. Procedimientos blindados frente a recursos y modificaciones contractuales."
+  },
+  "video_showcase": {
+    "eyebrow": "Caso de uso destacado",
+    "title": "Inspección tributaria con resultados medibles",
+    "lead": "Auditoría completa de IBI, IAE e ICIO con incremento medio de la recaudación del 12-18% sin nuevas tasas para los vecinos."
   },
   "hero": {
     "eyebrow": "Asesoramiento al sector público",
@@ -81,18 +157,19 @@
       "service": "Servicio de interés",
       "service_options": ["Inspecciones tributarias", "Consultoría jurídica", "Consultoría técnica", "Consultoría económica", "Consultoría energética", "Subvenciones europeas", "Contrataciones", "Otro"],
       "message": "Cuéntanos brevemente tu caso",
-      "rgpd": "He leído y acepto la <a href=\"/privacidad\">política de privacidad</a> y el tratamiento de mis datos para responder a esta consulta.",
+      "rgpd": "He leído y acepto la {privacy} y el tratamiento de mis datos para responder a esta consulta.",
+      "privacy_link": "política de privacidad",
       "newsletter": "Quiero recibir novedades y alertas normativas (opcional).",
       "submit": "Enviar consulta",
       "sending": "Enviando…",
       "success": "Mensaje enviado. Nos pondremos en contacto en menos de 24 h.",
-      "error": "No hemos podido enviar tu mensaje. Inténtalo de nuevo o escríbenos directamente a info@regladoconsultores.com.",
+      "error": "No hemos podido enviar tu mensaje. Inténtalo de nuevo o escríbenos directamente a info{'@'}regladoconsultores.com.",
       "required": "Este campo es obligatorio",
       "invalid_email": "Introduce un email válido"
     },
     "info": {
       "phone": "+34 900 000 000",
-      "email": "info@regladoconsultores.com",
+      "email": "info{'@'}regladoconsultores.com",
       "address": "Madrid · Cobertura nacional",
       "hours": "L–V · 9:00–18:00"
     }

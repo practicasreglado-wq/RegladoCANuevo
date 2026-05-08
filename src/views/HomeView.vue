@@ -1,20 +1,22 @@
 <template>
-  <HeroSection @scrollto="onScroll" />
-  <section id="servicios" class="anchor"></section>
-  <ServicesSection />
-  <BannerSection />
-  <section id="sobre-nosotros" class="anchor"></section>
-  <AboutSection />
-  <StatsSection />
-  <VideoShowcaseSection
-    video-src="/video/InspeccionesTributarias.mp4"
-    eyebrow="Caso de uso destacado"
-    title="Inspección tributaria con resultados medibles"
-    lead="Auditoría completa de IBI, IAE e ICIO con incremento medio de la recaudación del 12-18% sin nuevas tasas para los vecinos." />
-  <ServicesDeepSection @scrollto="onScroll" />
-  <ProgramasSection />
-  <OrdenanzasSection />
-  <ContactSection />
+  <main>
+    <HeroSection @scrollto="onScroll" />
+    <section id="servicios" class="anchor"></section>
+    <ServicesSection />
+    <BannerSection />
+    <section id="sobre-nosotros" class="anchor"></section>
+    <AboutSection />
+    <StatsSection />
+    <VideoShowcaseSection
+      video-src="/video/InspeccionesTributarias.mp4"
+      :eyebrow="$t('video_showcase.eyebrow')"
+      :title="$t('video_showcase.title')"
+      :lead="$t('video_showcase.lead')" />
+    <ServicesDeepSection @scrollto="onScroll" />
+    <ProgramasSection />
+    <OrdenanzasSection />
+    <ContactSection />
+  </main>
 </template>
 
 <script setup>

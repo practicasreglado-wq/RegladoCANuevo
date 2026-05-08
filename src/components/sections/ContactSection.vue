@@ -83,7 +83,11 @@
         <label class="check" :class="{ 'is-error': errors.rgpd }">
           <input type="checkbox" v-model="form.rgpd" />
           <span class="check__box" aria-hidden="true"></span>
-          <span class="check__label" v-html="$t('contact.form.rgpd')"></span>
+          <i18n-t keypath="contact.form.rgpd" tag="span" class="check__label">
+            <template #privacy>
+              <a href="/privacidad" @click.stop>{{ $t('contact.form.privacy_link') }}</a>
+            </template>
+          </i18n-t>
         </label>
 
         <label class="check">
@@ -115,7 +119,7 @@ import { useI18n } from 'vue-i18n'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
 import MagneticButton from '@/components/ui/MagneticButton.vue'
 
-const { t, tm } = useI18n()
+const { t, tm } = useI18n({ useScope: 'global' })
 const roleOptions = computed(() => tm('contact.form.role_options') || [])
 const serviceOptions = computed(() => tm('contact.form.service_options') || [])
 

@@ -39,7 +39,7 @@ import compromisoImg from '@/assets/images/integral_consultoria_bg.png'
 const videoSrc = '/video/nosotros.mp4'
 const tagImages = [independenciaImg, rigorImg, cercaniaImg, innovacionImg, compromisoImg]
 
-const { tm } = useI18n()
+const { tm } = useI18n({ useScope: 'global' })
 const tags = computed(() => tm('about.tags') || [])
 const tagCards = computed(() => tags.value.map((label, index) => ({
   label,

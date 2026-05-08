@@ -25,7 +25,7 @@ import { useI18n } from 'vue-i18n'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
 import MagneticButton from '@/components/ui/MagneticButton.vue'
 import { scrollTo } from '@/composables/useLenis'
-const { tm } = useI18n()
+const { tm } = useI18n({ useScope: 'global' })
 function goTo(h) { const el = document.querySelector(h); if (el) scrollTo(el, { offset: -70 }) }
 const items = computed(() => tm('ordenanzas.items') || [])
 </script>
