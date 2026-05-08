@@ -11,8 +11,8 @@
         <div class="map-frame">
           <MapaReglado 
             ref="mapa"
-            aspect-ratio="16/9"
-            aspect-ratio-mobile="4/5"
+            aspect-ratio="16/11"
+            aspect-ratio-mobile="3/5"
             border-radius="8px"
             hint-text="Mapa de cobertura nacional · Reglado Consultores"
           />
@@ -165,5 +165,15 @@ function goToCity(city) {
   position: absolute;
   right: -0.5rem;
   color: rgba(201, 168, 76, 0.3);
+}
+@media (max-width: 768px) {
+  .stats__map-wrapper {
+    padding: 0.5rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 1.5rem;
+  }
+  .stats__map-wrapper::after {
+    inset: 0.25rem;
+  }
 }
 </style>

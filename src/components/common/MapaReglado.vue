@@ -19,7 +19,6 @@
       :style="{ pointerEvents: interacting ? 'auto' : 'none' }"
       loading="lazy"
       referrerpolicy="no-referrer"
-      sandbox="allow-scripts allow-same-origin allow-popups"
     ></iframe>
     
     <!-- Capa invisible que protege el scroll. Se quita al hacer click. -->
