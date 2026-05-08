@@ -1,6 +1,9 @@
 <template>
   <footer class="footer" aria-label="Pie de página">
 
+    <!-- Partículas doradas flotantes (mismo efecto que la sección "Financiación europea") -->
+    <div class="footer__particles" ref="particlesEl" aria-hidden="true"></div>
+
     <!-- ── Grid principal: 4 columnas ── -->
     <div class="container footer__inner">
 
@@ -60,11 +63,11 @@
         <ul class="footer__contact">
           <li>
             <span class="footer__contact-label">Teléfono:</span>
-            <a :href="`tel:${$t('contact.info.phone').replace(/\s/g,'')}`">{{ $t('contact.info.phone') }}</a>
+            <span class="footer__contact-text">{{ $t('contact.info.phone') }}</span>
           </li>
           <li>
             <span class="footer__contact-label">Email:</span>
-            <a href="mailto:info@regladoconsultores.com">info@regladoconsultores.com</a>
+            <span class="footer__contact-text">info@regladoconsultores.com</span>
           </li>
         </ul>
       </div>
@@ -77,8 +80,7 @@
       <ul class="footer__legal">
         <li><router-link to="/aviso-legal">{{ $t('footer.legal_notice') }}</router-link></li>
         <li><router-link to="/privacidad">{{ $t('footer.privacy') }}</router-link></li>
-        <!-- Política de cookies: sin enlace hasta crear la página -->
-        <li><span class="footer__legal-disabled">{{ $t('footer.cookies') }}</span></li>
+        <li><router-link to="/cookies">{{ $t('footer.cookies') }}</router-link></li>
       </ul>
     </div>
 
@@ -86,20 +88,51 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import logoBlanco from '@/assets/images/REGLADO_Blanco_slogan-e1643969373411.png'
+
 const year = new Date().getFullYear()
+const particlesEl = ref(null)
+
+// Genera las partículas doradas flotantes (mismo patrón que ProgramasSection)
+onMounted(() => {
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('span')
+    p.className = 'banner-particle'
+    const size = (Math.random() * 4 + 2).toFixed(1)
+    p.style.cssText = [
+      `width:${size}px`,
+      `height:${size}px`,
+      `left:${(Math.random() * 100).toFixed(1)}%`,
+      `--dur:${(Math.random() * 7 + 6).toFixed(1)}s`,
+      `--delay:${(Math.random() * 10).toFixed(1)}s`,
+      `--drift:${((Math.random() - 0.5) * 70).toFixed(0)}px`,
+      `--op:${(Math.random() * 0.35 + 0.12).toFixed(2)}`,
+    ].join(';')
+    particlesEl.value?.appendChild(p)
+  }
+})
 </script>
 
 <style scoped>
 /* ── Base ──────────────────────────────────────────────────── */
 .footer {
-  background: var(--color-navy-deep);
+  background: var(--color-navy);
   color: rgba(255, 255, 255, 0.78);
   font-family: Georgia, 'Times New Roman', serif;
   padding: clamp(3rem, 6vw, 5.5rem) 0 2rem;
   border-top: 2px solid var(--color-gold);
   position: relative;
+  overflow: hidden;
   z-index: 2;
+}
+
+/* Capa de partículas detrás del contenido */
+.footer__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ── Grid 4 columnas ───────────────────────────────────────── */
@@ -108,6 +141,8 @@ const year = new Date().getFullYear()
   grid-template-columns: 1.5fr 1fr 1.2fr 1fr;
   gap: clamp(2rem, 4vw, 3.5rem);
   padding-bottom: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Col 1: marca ──────────────────────────────────────────── */
@@ -243,6 +278,11 @@ const year = new Date().getFullYear()
   transition: color var(--t-fast);
 }
 .footer__contact a:hover { color: var(--color-gold); }
+.footer__contact-text {
+  font-size: 0.88rem;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.82);
+}
 
 /* ── Barra inferior ────────────────────────────────────────── */
 .footer__bottom {
@@ -256,6 +296,8 @@ const year = new Date().getFullYear()
   font-size: 0.86rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 1;
 }
 
 .footer__legal {
