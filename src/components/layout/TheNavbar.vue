@@ -107,7 +107,7 @@ async function goTo(hash) {
     const el = document.querySelector(hash)
     if (el) {
       // Los anchors del carousel de servicios necesitan offset 0 (coordenadas exactas de slide)
-      const offset = el.classList.contains('deep__anchor') ? 0 : -96
+      const offset = el.classList.contains('deep__anchor') ? 0 : 2
       scrollTo(el, { offset, immediate: true })
     }
   }

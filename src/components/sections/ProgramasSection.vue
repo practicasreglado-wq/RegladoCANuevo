@@ -63,8 +63,6 @@ onMounted(() => {
 
 <style scoped>
 .programas {
-  scroll-margin-top: var(--nav-height);
-  padding: clamp(5rem, 10vw, 8rem) 0;
   position: relative;
   overflow: hidden;
 }
@@ -102,7 +100,7 @@ onMounted(() => {
 .programas__card h3 { color: var(--color-white); margin: 0.7rem 0 0.5rem; font-size: var(--fs-xl); }
 .programas__card p { color: rgba(255,255,255,0.7); font-size: var(--fs-sm); line-height: 1.6; }
 
-.contrataciones { scroll-margin-top: var(--nav-height); background: var(--color-bg-cream); }
+.contrataciones { background: var(--color-bg-cream); }
 .contrataciones__inner {
   display: grid;
   grid-template-columns: 1.3fr 1fr;

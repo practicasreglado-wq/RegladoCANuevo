@@ -211,8 +211,12 @@ p {
 }
 
 .section {
-  padding: clamp(4rem, 9vw, 8rem) 0;
+  padding: var(--nav-height) 0 clamp(4rem, 9vw, 8rem);
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .section--dark {

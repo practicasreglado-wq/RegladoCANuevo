@@ -1,11 +1,9 @@
 <template>
   <main>
     <HeroSection @scrollto="onScroll" />
-    <section id="servicios" class="anchor"></section>
-    <ServicesSection />
+    <ServicesSection id="servicios" />
     <BannerSection />
-    <section id="sobre-nosotros" class="anchor"></section>
-    <AboutSection />
+    <AboutSection id="sobre-nosotros" />
     <StatsSection />
     <VideoShowcaseSection
       video-src="/video/InspeccionesTributarias.mp4"
@@ -15,7 +13,7 @@
     <ServicesDeepSection @scrollto="onScroll" />
     <ProgramasSection />
     <OrdenanzasSection />
-    <ContactSection />
+    <ContactSection id="contacto" />
   </main>
 </template>
 
@@ -50,5 +48,4 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.anchor { display: block; height: 0; scroll-margin-top: var(--nav-height); }
 </style>
