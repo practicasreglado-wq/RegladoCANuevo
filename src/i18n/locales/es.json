@@ -168,7 +168,7 @@
       "invalid_email": "Introduce un email válido"
     },
     "info": {
-      "phone": "+34 900 000 000",
+      "phone": "91 146 26 74",
       "email": "info{'@'}regladoconsultores.com",
       "address": "Madrid · Cobertura nacional",
       "hours": "L–V · 9:00–18:00"
@@ -183,7 +183,7 @@
     "privacy": "Privacidad",
     "legal_notice": "Aviso legal",
     "accessibility": "Accesibilidad",
-    "cookies": "Cookies"
+    "cookies": "Política de Cookies"
   },
   "cookies": {
     "title": "Usamos cookies con propósito",
