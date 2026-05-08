@@ -87,12 +87,12 @@ onMounted(() => {
   z-index: 1;
 }
 .programas__card {
-  background: var(--color-navy);
+  background: rgba(26, 45, 78, 0.75);
   padding: 2rem;
   transition: background var(--t-base);
   position: relative;
 }
-.programas__card:hover { background: var(--color-navy-soft); }
+.programas__card:hover { background: rgba(36, 58, 99, 0.85); }
 .programas__num {
   font-family: var(--font-display);
   color: var(--color-gold);

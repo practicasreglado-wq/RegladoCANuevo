@@ -65,12 +65,12 @@ onUnmounted(() => {
   height: min(95vmin, 1100px);
   border: 0;
   background: transparent;
-  opacity: 0.18;
+  opacity: 0.28;
   pointer-events: none;
 }
 
 @media (max-width: 768px) {
-  .logo3d iframe { width: 110vmin; height: 110vmin; opacity: 0.13; }
+  .logo3d iframe { width: 110vmin; height: 110vmin; opacity: 0.08; }
 }
 @media (prefers-reduced-motion: reduce) {
   .logo3d { display: none; }
