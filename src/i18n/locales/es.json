@@ -1,6 +1,5 @@
 {
   "brand": "Reglado Consultores",
-  "tagline": "Consultoría integral para administraciones públicas",
   "nav": {
     "home": "Inicio",
     "about": "Sobre nosotros",
@@ -106,6 +105,14 @@
     "subtitle": "Desde la inspección tributaria hasta la transición energética, cubrimos todo el ciclo de vida de la gestión pública.",
     "cta": "Conocer servicio"
   },
+  "services_deep": {
+    "aria_progress": "Progreso de servicios",
+    "scroll_hint": "Sigue bajando para avanzar",
+    "scroll_hint_desktop": "Sigue bajando para avanzar (Scroll)",
+    "next_service": "Siguiente servicio",
+    "previous_service": "Servicio anterior",
+    "go_to_service": "Ir al servicio {n}"
+  },
   "banner": {
     "eyebrow": "Nuestra filosofía",
     "title": "Rigor jurídico, visión técnica, mirada estratégica.",
@@ -120,13 +127,7 @@
   },
   "stats": {
     "eyebrow": "Cifras que avalan",
-    "title": "Resultados de un trabajo bien hecho",
-    "items": [
-      { "value": 220, "suffix": "+", "label": "Ayuntamientos asesorados" },
-      { "value": 24, "suffix": "", "label": "Años de experiencia" },
-      { "value": 38, "suffix": "", "label": "Profesionales en plantilla" },
-      { "value": 1850, "suffix": "+", "label": "Expedientes resueltos" }
-    ]
+    "title": "Resultados de un trabajo bien hecho"
   },
   "ordenanzas": {
     "eyebrow": "Ordenanzas fiscales",
@@ -176,13 +177,10 @@
   },
   "footer": {
     "tagline": "Consultoría integral para el sector público.",
-    "company": "Empresa",
-    "legal": "Legal",
     "contact_us": "Contacto",
     "rights": "Todos los derechos reservados.",
     "privacy": "Privacidad",
     "legal_notice": "Aviso legal",
-    "accessibility": "Accesibilidad",
     "cookies": "Política de Cookies"
   },
   "cookies": {
@@ -192,8 +190,7 @@
   },
   "common": {
     "learn_more": "Saber más",
-    "back_home": "Volver al inicio",
-    "loading": "Cargando…"
+    "back_home": "Volver al inicio"
   },
   "notfound": {
     "title": "Página no encontrada",

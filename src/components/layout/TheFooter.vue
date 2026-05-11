@@ -88,30 +88,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import logoBlanco from '@/assets/images/REGLADO_Blanco_slogan-e1643969373411.png'
+import { useGoldParticles } from '@/composables/useGoldParticles'
 
 const year = new Date().getFullYear()
 const particlesEl = ref(null)
 
-// Genera las partículas doradas flotantes (mismo patrón que ProgramasSection)
-onMounted(() => {
-  for (let i = 0; i < 14; i++) {
-    const p = document.createElement('span')
-    p.className = 'banner-particle'
-    const size = (Math.random() * 4 + 2).toFixed(1)
-    p.style.cssText = [
-      `width:${size}px`,
-      `height:${size}px`,
-      `left:${(Math.random() * 100).toFixed(1)}%`,
-      `--dur:${(Math.random() * 7 + 6).toFixed(1)}s`,
-      `--delay:${(Math.random() * 10).toFixed(1)}s`,
-      `--drift:${((Math.random() - 0.5) * 70).toFixed(0)}px`,
-      `--op:${(Math.random() * 0.35 + 0.12).toFixed(2)}`,
-    ].join(';')
-    particlesEl.value?.appendChild(p)
-  }
-})
+// Partículas doradas flotantes en el footer
+useGoldParticles(particlesEl)
 </script>
 
 <style scoped>
@@ -321,12 +306,6 @@ onMounted(() => {
   transition: color var(--t-fast);
 }
 .footer__legal a:hover { color: var(--color-gold); }
-
-/* Cookies: aún sin página, aparece desactivado */
-.footer__legal-disabled {
-  color: rgba(255, 255, 255, 0.3);
-  cursor: default;
-}
 
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 960px) {

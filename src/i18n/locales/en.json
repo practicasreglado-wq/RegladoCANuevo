@@ -1,6 +1,5 @@
 {
   "brand": "Reglado Consultores",
-  "tagline": "End-to-end consulting for public administrations",
   "nav": {
     "home": "Home",
     "about": "About",
@@ -106,6 +105,14 @@
     "subtitle": "From tax inspections to the energy transition, we cover the full life-cycle of public management.",
     "cta": "Learn more"
   },
+  "services_deep": {
+    "aria_progress": "Services progress",
+    "scroll_hint": "Keep scrolling to continue",
+    "scroll_hint_desktop": "Keep scrolling to continue (Scroll)",
+    "next_service": "Next service",
+    "previous_service": "Previous service",
+    "go_to_service": "Go to service {n}"
+  },
   "banner": {
     "eyebrow": "Our philosophy",
     "title": "Legal rigour, technical insight, strategic vision.",
@@ -120,13 +127,7 @@
   },
   "stats": {
     "eyebrow": "Numbers that prove it",
-    "title": "Results of a job well done",
-    "items": [
-      { "value": 220, "suffix": "+", "label": "Town halls advised" },
-      { "value": 24, "suffix": "", "label": "Years of experience" },
-      { "value": 38, "suffix": "", "label": "In-house professionals" },
-      { "value": 1850, "suffix": "+", "label": "Cases resolved" }
-    ]
+    "title": "Results of a job well done"
   },
   "ordenanzas": {
     "eyebrow": "Tax ordinances",
@@ -176,13 +177,10 @@
   },
   "footer": {
     "tagline": "End-to-end consulting for the public sector.",
-    "company": "Company",
-    "legal": "Legal",
     "contact_us": "Contact",
     "rights": "All rights reserved.",
     "privacy": "Privacy",
     "legal_notice": "Legal notice",
-    "accessibility": "Accessibility",
     "cookies": "Cookie Policy"
   },
   "cookies": {
@@ -192,8 +190,7 @@
   },
   "common": {
     "learn_more": "Learn more",
-    "back_home": "Back home",
-    "loading": "Loading…"
+    "back_home": "Back home"
   },
   "notfound": {
     "title": "Page not found",

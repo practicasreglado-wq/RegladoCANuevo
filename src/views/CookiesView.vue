@@ -22,7 +22,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
 
-const { locale } = useI18n()
+const { locale } = useI18n({ useScope: 'global' })
 
 const content = {
   es: {

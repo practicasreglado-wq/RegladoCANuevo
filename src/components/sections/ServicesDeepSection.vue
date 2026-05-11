@@ -51,7 +51,35 @@
         </article>
       </div>
 
-      <div class="deep__hud" aria-label="Progreso de servicios">
+      <!-- Flecha "anterior": retrocede al servicio previo. Se oculta en el primero.
+           Solo visible en desktop (≥901px). -->
+      <button
+        v-if="activeIndex > 0"
+        type="button"
+        class="deep__nav-btn deep__nav-btn--prev"
+        :aria-label="$t('services_deep.previous_service')"
+        @click="goToService(activeIndex - 1)"
+      >
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Flecha "siguiente": avanza al próximo servicio. Se oculta en el último.
+           Solo visible en desktop (≥901px). -->
+      <button
+        v-if="activeIndex < blocks.length - 1"
+        type="button"
+        class="deep__nav-btn deep__nav-btn--next"
+        :aria-label="$t('services_deep.next_service')"
+        @click="goToService(activeIndex + 1)"
+      >
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="deep__hud" :aria-label="$t('services_deep.aria_progress')">
         <div class="deep__hud-top">
           <span>{{ currentLabel }}</span>
           <span>{{ totalLabel }}</span>
@@ -60,15 +88,46 @@
           <span :style="{ width: `${Math.max(progress, minimumProgress) * 100}%` }"></span>
         </div>
         <div class="deep__hud-bottom">
-          <p>{{ isWideViewport ? 'Sigue bajando' : 'Sigue bajando para avanzar' }}</p>
-          <div class="deep__dots" aria-hidden="true">
+          <p>{{ isWideViewport ? $t('services_deep.scroll_hint_desktop') : $t('services_deep.scroll_hint') }}</p>
+
+          <!-- Mini-navegación: flecha izquierda · bolitas · flecha derecha.
+               Visible en desktop y móvil. Las flechas se deshabilitan en los extremos. -->
+          <div class="deep__dots-wrap">
             <button
-              v-for="(_, i) in blocks"
-              :key="i"
               type="button"
-              :class="{ 'is-active': activeIndex === i }"
-              @click="goToService(i)"
-            ></button>
+              class="deep__dot-nav deep__dot-nav--prev"
+              :aria-label="$t('services_deep.previous_service')"
+              :disabled="activeIndex === 0"
+              @click="goToService(activeIndex - 1)"
+            >
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <div class="deep__dots">
+              <button
+                v-for="(_, i) in blocks"
+                :key="i"
+                type="button"
+                :class="{ 'is-active': activeIndex === i }"
+                :aria-label="$t('services_deep.go_to_service', { n: i + 1 })"
+                :aria-current="activeIndex === i ? 'true' : undefined"
+                @click="goToService(i)"
+              ></button>
+            </div>
+
+            <button
+              type="button"
+              class="deep__dot-nav deep__dot-nav--next"
+              :aria-label="$t('services_deep.next_service')"
+              :disabled="activeIndex === blocks.length - 1"
+              @click="goToService(activeIndex + 1)"
+            >
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -87,11 +146,6 @@ import imgTecnica from '@/assets/images/tecnica_hero_bg.png'
 import imgEconomica from '@/assets/images/economica_hero_bg.png'
 import imgEnergetica from '@/assets/images/consultoria_energetica.png'
 
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
 const sectionEl = ref(null)
 const trackEl = ref(null)
 const activeIndex = ref(0)
@@ -100,7 +154,6 @@ const isScrollCarousel = ref(false)
 const isWideViewport = ref(false)
 const isInView = ref(false)
 
-let stInstance = null
 let frame = null
 let reducedMotionQuery = null
 let wideViewportQuery = null
@@ -108,6 +161,17 @@ let wideViewportQuery = null
 function goTo(hash) {
   const el = document.querySelector(hash)
   if (el) scrollTo(el, { offset: -70 })
+}
+
+// Navega al servicio i-ésimo desplazando la página al ancla correspondiente.
+// Usado tanto por los puntos del HUD como por la flecha "siguiente".
+// offset: 0 e immediate: true porque los anchors están posicionados en las
+// coordenadas exactas de cada slide (mismo patrón que usa TheNavbar).
+function goToService(i) {
+  const target = blocks[i]
+  if (!target) return
+  const anchor = document.getElementById(target.id)
+  if (anchor) scrollTo(anchor, { offset: 0, immediate: true })
 }
 
 function pad(value) {
@@ -463,10 +527,17 @@ const trackStyle = computed(() => {
   text-transform: uppercase;
 }
 
+/* Wrapper que agrupa: flecha-izq · bolitas · flecha-der */
+.deep__dots-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  pointer-events: auto;
+}
+
 .deep__dots {
   display: inline-flex;
   gap: 0.5rem;
-  pointer-events: auto;
 }
 
 .deep__dots button {
@@ -481,6 +552,101 @@ const trackStyle = computed(() => {
 .deep__dots button.is-active {
   width: 28px;
   background: var(--color-gold);
+}
+
+/* Mini-flechas que flanquean las bolitas (desktop + móvil) */
+.deep__dot-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition:
+    color var(--t-fast),
+    background var(--t-fast),
+    transform var(--t-fast),
+    opacity var(--t-fast);
+}
+
+.deep__dot-nav:hover {
+  color: var(--color-gold);
+  background: rgba(201, 168, 76, 0.15);
+}
+
+.deep__dot-nav--prev:hover { transform: translateX(-2px); }
+.deep__dot-nav--next:hover { transform: translateX(2px); }
+
+/* Estado deshabilitado en los extremos del carrusel: visible pero apagado */
+.deep__dot-nav[disabled] {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.deep__dot-nav:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* ── Flechas de navegación del carrusel ──
+   Botones cuadrados posicionados en los laterales del carrusel.
+   Solo visibles en desktop (≥901px). En móvil se oculta y se navega
+   exclusivamente con scroll o con las bolitas del HUD.
+   También se ocultan en `prefers-reduced-motion` (el carrusel se vuelve stack). */
+.deep__nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  background: rgba(17, 30, 51, 0.65);
+  border: 1px solid rgba(201, 168, 76, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--color-gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition:
+    background var(--t-base) var(--ease-out),
+    border-color var(--t-base) var(--ease-out),
+    transform var(--t-base) var(--ease-out);
+}
+
+/* Posición lateral según el modificador */
+.deep__nav-btn--prev { left:  clamp(1rem, 3vw, 2.5rem); }
+.deep__nav-btn--next { right: clamp(1rem, 3vw, 2.5rem); }
+
+/* Hover: tinte dorado + pequeño desplazamiento en la dirección de la flecha */
+.deep__nav-btn:hover {
+  background: rgba(201, 168, 76, 0.18);
+  border-color: var(--color-gold);
+}
+.deep__nav-btn--prev:hover { transform: translateY(-50%) translateX(-4px); }
+.deep__nav-btn--next:hover { transform: translateY(-50%) translateX(4px); }
+
+.deep__nav-btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* Móvil: ocultas (el usuario navega con scroll o con las bolitas) */
+@media (max-width: 900px) {
+  .deep__nav-btn { display: none; }
+}
+
+/* Movimiento reducido: ocultas (el carrusel se convierte en stack vertical) */
+@media (prefers-reduced-motion: reduce) {
+  .deep__nav-btn { display: none; }
 }
 
 @media (max-width: 1100px) {
