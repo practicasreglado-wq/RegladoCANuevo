@@ -82,7 +82,7 @@ const scrolled = ref(false)
 const open = ref(false)
 const dropdown = ref(false)
 const logoSpinClass = ref('')
-const { locale } = useI18n()
+const { locale } = useI18n({ useScope: 'global' })
 const router = useRouter()
 const route = useRoute()
 
@@ -304,6 +304,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 
 @media (max-width: 980px) {
+  /* En móvil mantenemos la cabecera con altura fija al hacer scroll
+     para evitar el hueco entre el header y el menú desplegable */
+  .nav.is-scrolled {
+    height: var(--nav-height);
+  }
+
   .nav__menu {
     position: fixed;
     inset: var(--nav-height) 0 auto 0;

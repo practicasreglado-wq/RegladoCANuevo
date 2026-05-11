@@ -32,36 +32,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import SplitHeading from '@/components/ui/SplitHeading.vue'
 import MagneticButton from '@/components/ui/MagneticButton.vue'
 import CanvasVideoBackground from '@/components/ui/CanvasVideoBackground.vue'
 import { scrollTo } from '@/composables/useLenis'
+import { useGoldParticles } from '@/composables/useGoldParticles'
 
 const particlesEl = ref(null)
+
+// Partículas doradas flotantes en el fondo del hero
+useGoldParticles(particlesEl)
 
 function goTo(hash) {
   const el = document.querySelector(hash)
   if (el) scrollTo(el, { offset: -96 })
 }
-
-onMounted(() => {
-  for (let i = 0; i < 14; i++) {
-    const p    = document.createElement('span')
-    p.className = 'banner-particle'
-    const size  = (Math.random() * 4 + 2).toFixed(1)
-    p.style.cssText = [
-      `width:${size}px`,
-      `height:${size}px`,
-      `left:${(Math.random() * 100).toFixed(1)}%`,
-      `--dur:${(Math.random() * 7 + 6).toFixed(1)}s`,
-      `--delay:${(Math.random() * 10).toFixed(1)}s`,
-      `--drift:${((Math.random() - 0.5) * 70).toFixed(0)}px`,
-      `--op:${(Math.random() * 0.35 + 0.12).toFixed(2)}`,
-    ].join(';')
-    particlesEl.value?.appendChild(p)
-  }
-})
 </script>
 
 <style scoped>

@@ -70,7 +70,7 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
-  .logo3d iframe { width: 110vmin; height: 110vmin; opacity: 0.08; }
+  .logo3d iframe { width: 110vmin; height: 110vmin; opacity: 0.28; }
 }
 @media (prefers-reduced-motion: reduce) {
   .logo3d { display: none; }
