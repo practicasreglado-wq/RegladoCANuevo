@@ -1,3 +1,7 @@
+<!--
+  TheNavbar.vue
+  Navegacion principal: controla idioma, menu movil, dropdown de servicios y scroll a secciones.
+-->
 <template>
   <header class="nav" :class="{ 'is-scrolled': scrolled, 'is-open': open }">
     <div class="container nav__inner">
@@ -13,7 +17,7 @@
       <nav class="nav__menu" :class="{ 'is-open': open }" aria-label="Principal">
 
         <!-- Reglado Group: solo visible en menú móvil -->
-        <a href="https://regladogroup.com/" target="_blank" rel="noopener" class="nav__group-btn">
+        <a href="https://regladogroup.com/" target="_blank" rel="noopener noreferrer" class="nav__group-btn">
           <span class="nav__group-btn-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
           </span>
@@ -53,7 +57,7 @@
       </nav>
 
       <div class="nav__right">
-        <a href="https://regladogroup.com/" target="_blank" rel="noopener" class="nav__group-link">Reglado Group</a>
+        <a href="https://regladogroup.com/" target="_blank" rel="noopener noreferrer" class="nav__group-link">Reglado Group</a>
         <div class="lang">
           <button v-for="l in ['es','en']" :key="l" :class="{ active: locale === l }" @click="changeLocale(l)" :aria-label="`Idioma ${l}`">
             <span :class="['fi', l === 'es' ? 'fi-es' : 'fi-gb']"></span>

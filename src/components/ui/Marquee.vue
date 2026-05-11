@@ -1,3 +1,7 @@
+<!--
+  Marquee.vue
+  Componente de carrusel horizontal continuo que duplica el slot para crear desplazamiento infinito.
+-->
 <template>
   <div class="marquee" :style="{ '--speed': speed + 's' }">
     <div class="marquee__track">

@@ -1,3 +1,7 @@
+<!--
+  OrdenanzasSection.vue
+  Bloque editorial sobre ordenanzas, contrataciones y administracion local.
+-->
 <template>
   <section class="section section--light ordenanzas">
     <div class="container ordenanzas__inner">

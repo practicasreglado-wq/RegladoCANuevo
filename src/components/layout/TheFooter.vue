@@ -1,3 +1,7 @@
+<!--
+  TheFooter.vue
+  Pie global con marca, enlaces de navegacion, servicios, contacto y enlaces legales.
+-->
 <template>
   <footer class="footer" aria-label="Pie de página">
 

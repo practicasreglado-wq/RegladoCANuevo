@@ -1,3 +1,7 @@
+<!--
+  CanvasVideoBackground.vue
+  Fondo animado por scroll que dibuja una secuencia de imagenes en canvas con fallback estatico.
+-->
 <template>
   <div class="cvb">
     <div v-if="!isReady && !showFallback" class="cvb__loader" aria-hidden="true">
@@ -50,6 +54,7 @@ let scrubTween = null
 let fadeTween = null
 
 function shouldFallback() {
+  // Evita cargar la secuencia completa cuando el usuario o el dispositivo piden una experiencia ligera.
   const rm = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
   const sd = navigator.connection?.saveData
   const slow = ['slow-2g', '2g'].includes(navigator.connection?.effectiveType || '')
@@ -77,6 +82,7 @@ async function preload() {
 }
 
 function fit(canvas, img) {
+  // Cover centrado: llena el viewport sin deformar los frames, recortando solo los bordes sobrantes.
   const ca = canvas.width / canvas.height
   const ia = img.width / img.height
   if (ca > ia) { dp.w = canvas.width; dp.h = canvas.width / ia; dp.x = 0; dp.y = (canvas.height - dp.h) / 2 }

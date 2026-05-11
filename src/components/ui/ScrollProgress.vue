@@ -1,3 +1,7 @@
+<!--
+  ScrollProgress.vue
+  Muestra barras superior e inferior con el progreso real de lectura de la pagina.
+-->
 <template>
   <div class="scroll-progress" aria-hidden="true">
     <!-- Barra superior -->

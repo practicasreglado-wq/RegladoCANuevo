@@ -1,3 +1,7 @@
+<!--
+  App.vue
+  Componente raiz: compone la estructura global, transiciones de pagina, layout y utilidades visuales.
+-->
 <template>
 <ScrollProgress />
   <CursorBlend />

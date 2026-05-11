@@ -1,3 +1,7 @@
+<!--
+  SplitHeading.vue
+  Renderiza titulos palabra a palabra para activar animaciones de entrada controladas por viewport.
+-->
 <template>
   <component :is="tag" ref="el" class="split-heading">
     <span class="split-line">

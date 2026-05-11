@@ -1,3 +1,7 @@
+<!--
+  NotFoundView.vue
+  Vista de fallback para rutas no reconocidas, con salida clara hacia la pagina principal.
+-->
 <template>
   <section class="notfound">
     <div class="container">

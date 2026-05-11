@@ -1,3 +1,7 @@
+/**
+ * Configuracion de Vite para la SPA de Reglado Consultores.
+ * Define Vue, alias de importacion y proxy local hacia el endpoint PHP de contacto.
+ */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'

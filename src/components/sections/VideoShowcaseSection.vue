@@ -1,3 +1,7 @@
+<!--
+  VideoShowcaseSection.vue
+  Seccion visual de apoyo que presenta contenido audiovisual dentro del relato de la home.
+-->
 <template>
   <section class="showcase section--dark">
     <div class="showcase__media" aria-hidden="true">

@@ -1,3 +1,7 @@
+/**
+ * Router principal de la SPA.
+ * Centraliza rutas legales, redirecciones legacy hacia anclas y comportamiento de scroll.
+ */
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Single-page: una sola HomeView con todas las secciones.

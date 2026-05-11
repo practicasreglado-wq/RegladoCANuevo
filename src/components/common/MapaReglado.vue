@@ -1,6 +1,8 @@
 <!--
   MapaReglado.vue — Atlas interactivo de municipios de España
   ================================================================
+  Carga el mapa bajo demanda en un iframe y protege el scroll de la pagina
+  hasta que el usuario decide interactuar con el atlas.
 -->
 <template>
   <div 
@@ -19,6 +21,7 @@
       :style="{ pointerEvents: interacting ? 'auto' : 'none' }"
       loading="lazy"
       referrerpolicy="no-referrer"
+      sandbox="allow-scripts allow-same-origin"
     ></iframe>
     
     <!-- Capa invisible que protege el scroll. Se quita al hacer click. -->
@@ -110,7 +113,7 @@ function flyTo(cpro, muniId = null) {
     loaded.value = true
     setTimeout(() => {
       interacting.value = true
-      iframeEl.value?.contentWindow?.postMessage({ type: 'fly-to', cpro, muniId }, '*')
+      iframeEl.value?.contentWindow?.postMessage({ type: 'fly-to', cpro, muniId }, window.location.origin)
     }, 1000)
     return
   }
@@ -140,7 +143,7 @@ defineExpose({ flyTo })
   transition: opacity 0.3s ease;
 }
 
-/* El truco del almendruco: Capa invisible que bloquea interacción pero NO el scroll */
+/* Capa invisible: bloquea la interaccion directa con el iframe sin bloquear el scroll de la pagina. */
 .mapa-reglado__scroll-protector {
   position: absolute;
   inset: 0;

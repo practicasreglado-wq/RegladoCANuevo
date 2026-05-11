@@ -1,3 +1,7 @@
+<!--
+  AccesibilidadView.vue
+  Vista legal que informa del estado de accesibilidad y canales de comunicacion.
+-->
 <template>
   <article class="legal">
     <section class="page-hero section--dark">

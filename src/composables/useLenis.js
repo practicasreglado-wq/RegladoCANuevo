@@ -1,3 +1,7 @@
+/**
+ * Integracion de scroll suavizado con Lenis y GSAP ScrollTrigger.
+ * Mantiene una instancia compartida y ofrece scrollTo con fallback nativo.
+ */
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'

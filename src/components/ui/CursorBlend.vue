@@ -1,3 +1,7 @@
+<!--
+  CursorBlend.vue
+  Cursor visual personalizado para escritorio, con estado especial sobre elementos interactivos.
+-->
 <template>
   <div ref="el" class="cursor" :class="{ 'is-active': active, 'is-hover': hover }" aria-hidden="true"></div>
 </template>

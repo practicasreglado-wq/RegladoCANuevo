@@ -1,3 +1,7 @@
+<!--
+  ContactSection.vue
+  Formulario de contacto con validacion cliente, protecciones anti-spam y envio al endpoint PHP.
+-->
 <template>
   <section id="contacto" class="contact">
     <div class="container contact__inner">
@@ -134,6 +138,7 @@ let mountedAt = 0
 onMounted(() => { mountedAt = Date.now() })
 
 function validate() {
+  // Validacion cliente minima: el backend mantiene la responsabilidad final de aceptar o rechazar el envio.
   for (const k of Object.keys(errors)) delete errors[k]
   if (!form.name.trim()) errors.name = t('contact.form.required')
   if (!form.entity.trim()) errors.entity = t('contact.form.required')

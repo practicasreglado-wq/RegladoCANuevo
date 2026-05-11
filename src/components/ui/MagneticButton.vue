@@ -1,3 +1,7 @@
+<!--
+  MagneticButton.vue
+  Componente generico que desplaza suavemente un boton o enlace hacia el cursor.
+-->
 <template>
   <component :is="tag" ref="el" class="mag" @mousemove="onMove" @mouseleave="reset">
     <span class="mag__inner" ref="inner"><slot /></span>
