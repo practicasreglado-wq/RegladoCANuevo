@@ -1,3 +1,7 @@
+/**
+ * Punto de entrada del cliente Vue.
+ * Monta la aplicacion, registra router, i18n, directivas globales y estilos base.
+ */
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'

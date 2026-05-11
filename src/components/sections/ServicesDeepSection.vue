@@ -1,3 +1,7 @@
+<!--
+  ServicesDeepSection.vue
+  Carrusel narrativo de servicios: convierte el scroll vertical en paneles sticky de detalle.
+-->
 <template>
   <section
     ref="sectionEl"

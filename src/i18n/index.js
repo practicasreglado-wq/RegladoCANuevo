@@ -1,3 +1,7 @@
+/**
+ * Inicializacion de internacionalizacion.
+ * Detecta el idioma preferido, carga traducciones y expone el cambio persistente de locale.
+ */
 import { createI18n } from 'vue-i18n'
 import es from './locales/es.json'
 import en from './locales/en.json'

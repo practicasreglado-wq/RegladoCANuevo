@@ -1,9 +1,14 @@
+<!--
+  StatsSection.vue
+  Muestra indicadores de confianza y experiencia con animacion de entrada al viewport.
+-->
 <template>
   <section class="stats section--dark">
     <div class="container">
       <header class="stats__header">
         <p class="eyebrow" v-reveal>{{ $t('stats.eyebrow') }}</p>
         <SplitHeading :text="$t('stats.title')" tag="h2" />
+        <p class="stats__subtitle" v-reveal="{ delay: 2 }">{{ $t('stats.subtitle') }}</p>
       </header>
       
       <!-- Marco decorativo para el mapa -->
@@ -103,6 +108,12 @@ function goToCity(city) {
 }
 .stats__header { max-width: 720px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .stats__header > * + * { margin-top: 1rem; }
+.stats__subtitle {
+  max-width: 46rem;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: clamp(1rem, 1.1vw, 1.2rem);
+  line-height: 1.65;
+}
 
 /* Nuevo marco para el mapa */
 .stats__map-wrapper {
@@ -167,6 +178,10 @@ function goToCity(city) {
   color: rgba(201, 168, 76, 0.3);
 }
 @media (max-width: 768px) {
+  .stats__subtitle {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
   .stats__map-wrapper {
     padding: 0.5rem;
     border-radius: var(--radius-lg);

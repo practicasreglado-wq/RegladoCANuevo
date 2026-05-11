@@ -1,3 +1,7 @@
+<!--
+  TiltCard.vue
+  Wrapper interactivo que aplica inclinacion 3D y brillo segun la posicion del cursor.
+-->
 <template>
   <div ref="el" class="tilt" @mousemove="onMove" @mouseleave="reset">
     <div class="tilt__inner"><slot /></div>

@@ -1,3 +1,7 @@
+<!--
+  Logo3DBackground.vue
+  Inserta el logo 3D como marca de agua fija y sincroniza su giro con el scroll.
+-->
 <template>
   <div class="logo3d" aria-hidden="true">
     <iframe ref="frame" src="/logo3d.html" title="" tabindex="-1" loading="lazy"></iframe>
@@ -28,7 +32,7 @@ function onScroll() {
     // dy > 0 (scroll abajo) → rotación horaria (delta negativo en Z porque la cámara mira hacia +Z)
     // En el HTML del logo, `spinGroup.rotation.z -=` produce horario al mirar la cara, así que
     // enviamos delta = -dy * factor (positivo en delta = antihorario; negativo = horario).
-    f.contentWindow.postMessage({ type: 'reglado-spin', delta: -dy * ROT_PER_PX }, '*')
+    f.contentWindow.postMessage({ type: 'reglado-spin', delta: -dy * ROT_PER_PX }, window.location.origin)
   })
 }
 

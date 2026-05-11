@@ -1,3 +1,7 @@
+<!--
+  ProgramasSection.vue
+  Seccion de financiacion europea y programas, con apoyo visual y particulas decorativas.
+-->
 <template>
   <section id="subvenciones" class="section section--dark programas">
     <div class="programas__particles" ref="particlesEl" aria-hidden="true"></div>

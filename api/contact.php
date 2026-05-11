@@ -47,14 +47,16 @@ function jsonResponse(array $data, int $status = 200): void {
 }
 
 function clientIp(): string {
-    $candidates = ['HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'];
-    foreach ($candidates as $h) {
-        if (!empty($_SERVER[$h])) {
-            $ip = explode(',', $_SERVER[$h])[0];
-            return trim($ip);
-        }
-    }
-    return '0.0.0.0';
+    // SEGURIDAD: usamos solo REMOTE_ADDR. Confiar ciegamente en headers como
+    // X-Forwarded-For o CF-Connecting-IP permite a un atacante falsificarlos
+    // (basta con un header en la petición) y saltarse el rate-limit cambiando
+    // el valor para que parezca venir de otra IP.
+    //
+    // Si en producción el servidor está detrás de un proxy/CDN de confianza
+    // (Cloudflare, AWS ALB, Nginx, etc.):
+    //   1) Validar que REMOTE_ADDR pertenece al rango del proxy de confianza
+    //   2) SOLO entonces leer X-Forwarded-For / CF-Connecting-IP
+    return trim((string)($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0'));
 }
 
 // ---------- Anti-spam: rate limit por IP (file-based) ----------

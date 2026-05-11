@@ -1,3 +1,7 @@
+<!--
+  BannerSection.vue
+  Franja de posicionamiento de marca con texto destacado y fondo animado sutil.
+-->
 <template>
   <section class="banner section--dark" ref="sectionEl">
     <div class="banner__particles" ref="particlesEl" aria-hidden="true"></div>

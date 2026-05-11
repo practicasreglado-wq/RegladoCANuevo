@@ -115,7 +115,7 @@
   },
   "banner": {
     "eyebrow": "Nuestra filosofía",
-    "title": "Rigor jurídico, visión técnica, mirada estratégica.",
+    "title": "Rigor jurídico, visión técnica, mirada estratégica",
     "text": "Cada ayuntamiento es único. Diseñamos planes a medida que combinan cumplimiento normativo, eficiencia presupuestaria y prospectiva a largo plazo."
   },
   "about": {
@@ -127,7 +127,9 @@
   },
   "stats": {
     "eyebrow": "Cifras que avalan",
-    "title": "Resultados de un trabajo bien hecho"
+    "title": "Resultados de un trabajo bien hecho",
+    "subtitle": "Experiencia acreditada en todo el territorio nacional."
+  
   },
   "ordenanzas": {
     "eyebrow": "Ordenanzas fiscales",

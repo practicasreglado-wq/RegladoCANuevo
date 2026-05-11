@@ -1,3 +1,7 @@
+<!--
+  AboutSection.vue
+  Presenta la propuesta de valor de Reglado con tarjetas tematicas y video corporativo.
+-->
 <template>
   <section class="section section--cream about">
     <div class="container about__inner">

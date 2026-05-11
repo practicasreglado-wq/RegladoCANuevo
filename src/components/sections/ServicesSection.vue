@@ -1,3 +1,7 @@
+<!--
+  ServicesSection.vue
+  Resumen de areas de servicio con tarjetas enlazadas a cada panel de detalle.
+-->
 <template>
   <section class="section">
     <div class="container">

@@ -1,3 +1,7 @@
+<!--
+  public/logo3d.html
+  Escena Three.js aislada en iframe para renderizar el simbolo 3D de Reglado y recibir giros por postMessage.
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -54,6 +58,9 @@
 {
   "imports": {
     "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.min.js"
+  },
+  "integrity": {
+    "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.min.js": "sha384-+7VW8Rny1GMNQLteWBRZULFnMDur7GPhGeywh2qB6r16ML7CI+ITvhl2vdRM72Dh"
   }
 }
 </script>
@@ -398,6 +405,8 @@
       let xSpinAccum = 0;         // rotación continua lenta por tiempo (eje X)
 
       window.addEventListener('message', (e) => {
+        // Seguridad: solo aceptar mensajes del mismo origen (rechaza si alguien embed este iframe en otro dominio)
+        if (e.origin !== window.location.origin) return;
         const data = e.data || {};
         if (data.type === 'reglado-spin' && typeof data.delta === 'number') {
           scrollSpinTarget += data.delta;

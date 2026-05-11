@@ -29,7 +29,10 @@
   Header always set Cross-Origin-Resource-Policy "same-origin"
 
   # CSP — ajustar dominios según se incorporen servicios externos
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+  # NOTA: 'unsafe-eval' es necesario porque vue-i18n compila las plantillas de
+  # mensajes en runtime con `new Function()`. Si en el futuro pre-compilamos
+  # los mensajes con @intlify/unplugin-vue-i18n, esta directiva se puede quitar.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
 </IfModule>
 
 # ----- Compresión -----

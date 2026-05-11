@@ -1,4 +1,3 @@
-
 // tweaks-panel.jsx
 // Reusable Tweaks shell + form-control helpers.
 //
@@ -139,7 +138,7 @@ function useTweaks(defaults) {
   const [values, setValues] = React.useState(defaults);
   const setTweak = React.useCallback((key, val) => {
     setValues((prev) => ({ ...prev, [key]: val }));
-    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, window.location.origin);
   }, []);
   return [values, setTweak];
 }
@@ -185,18 +184,20 @@ function TweaksPanel({ title = 'Tweaks', children }) {
 
   React.useEffect(() => {
     const onMsg = (e) => {
+      // Seguridad: solo aceptar mensajes del mismo origen (rechaza si alguien embed este iframe en otro dominio)
+      if (e.origin !== window.location.origin) return;
       const t = e?.data?.type;
       if (t === '__activate_edit_mode') setOpen(true);
       else if (t === '__deactivate_edit_mode') setOpen(false);
     };
     window.addEventListener('message', onMsg);
-    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    window.parent.postMessage({ type: '__edit_mode_available' }, window.location.origin);
     return () => window.removeEventListener('message', onMsg);
   }, []);
 
   const dismiss = () => {
     setOpen(false);
-    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, window.location.origin);
   };
 
   const onDragStart = (e) => {

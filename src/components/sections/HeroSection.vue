@@ -1,3 +1,7 @@
+<!--
+  HeroSection.vue
+  Primera seccion de impacto con fondo secuenciado, particulas, llamadas a la accion y scroll guiado.
+-->
 <template>
   <section id="top" class="hero">
     <CanvasVideoBackground name="h4" :frame-count="79" trigger="#top" end-trigger="#sobre-nosotros" />

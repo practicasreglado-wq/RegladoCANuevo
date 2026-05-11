@@ -1,3 +1,7 @@
+<!--
+  HomeView.vue
+  Pagina principal: ensambla las secciones comerciales y de contacto en una landing navegable por anclas.
+-->
 <template>
   <main>
     <HeroSection @scrollto="onScroll" />

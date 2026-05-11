@@ -1,3 +1,7 @@
+<!--
+  CookieBanner.vue
+  Aviso persistente de cookies tecnicas que guarda la aceptacion en localStorage.
+-->
 <template>
   <transition name="fade">
     <div v-if="show" class="cookie" role="dialog" aria-live="polite">

@@ -40,6 +40,8 @@ function App() {
   // Listen for messages from parent (e.g. StatsSection clicking a city)
   React.useEffect(() => {
     const onMsg = (e) => {
+      // Seguridad: solo aceptar mensajes del mismo origen (rechaza si alguien embed este iframe en otro dominio)
+      if (e.origin !== window.location.origin) return;
       if (e.data.type === 'fly-to') {
         mapRef.current?.flyToMunicipio(e.data.cpro, e.data.muniId);
       }
